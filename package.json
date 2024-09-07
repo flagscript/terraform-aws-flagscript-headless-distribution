@@ -1,0 +1,30 @@
+{
+  "name": "terraform-aws-flagscript-[descriptive]]",
+  "description": "[AWS Service] modules for flagscript setups adhering to reasonable aws standards.",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flagscript/terraform-aws-flagscript-kms.git"
+  },
+  "keywords": [
+    "flagscript",
+    "aws",
+    "terraform",
+    "kms"
+  ],
+  "author": {
+    "name": "Greg Kaestle",
+    "email": "flagscript@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flagscript/terraform-aws-flagscript-kms/issues"
+  },
+  "homepage": "https://github.com/flagscript/terraform-aws-flagscript-kms#readme",
+  "dependencies": {
+    "husky": "^9.1.5"
+  }
+}
