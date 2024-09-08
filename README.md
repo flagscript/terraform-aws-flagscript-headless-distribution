@@ -17,7 +17,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_distribution_bucket"></a> [distribution\_bucket](#module\_distribution\_bucket) | flagscript/flagscript-s3-bucket/aws | 3.0.0 |
+| <a name="module_distribution_bucket"></a> [distribution\_bucket](#module\_distribution\_bucket) | flagscript/flagscript-s3-bucket/aws | 3.0.1 |
 
 ## Resources
 
