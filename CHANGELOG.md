@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.4...v1.1.5) (2024-09-08)
+
+
+### Bug Fixes
+
+* **resolves #13:** Upgrade to s3 3.0.1. ([796ec9e](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/796ec9eefde5e8cf4ffde4ab416ab76780be559e)), closes [#13](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/issues/13)
+
 ## [1.1.4](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.3...v1.1.4) (2024-09-08)
 
 
