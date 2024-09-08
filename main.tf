@@ -114,7 +114,7 @@ data "aws_route53_zone" "site_domain" {
 resource "aws_route53_record" "acm_validation_records" {
   provider = aws.dns
   for_each = {
-    for dvo in aws_acm_certificate.distribution_certificate.acm_domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.distribution_certificate.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
