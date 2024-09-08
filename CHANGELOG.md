@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.0...v1.1.1) (2024-09-08)
+
+
+### Bug Fixes
+
+* **resolves #5:** Fix domain validation options. ([df65077](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/df65077cde02b69022209e76f115856ce4d2a4d9)), closes [#5](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/issues/5)
+
 # [1.1.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.0.0...v1.1.0) (2024-09-08)
 
 
