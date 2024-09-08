@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.3...v1.1.4) (2024-09-08)
+
+
+### Bug Fixes
+
+* **resolves #11:** Switch from aws_s3_bucket_object to aws_s3_object. ([e576ffb](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/e576ffb6f214add7dc763b5cfcd50ff5d41dfd55)), closes [#11](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/issues/11)
+
 ## [1.1.3](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.2...v1.1.3) (2024-09-08)
 
 
