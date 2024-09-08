@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.1...v1.1.2) (2024-09-08)
+
+
+### Bug Fixes
+
+* **resolves #7:** Fix hosted zone lookup provider. ([28b4ff4](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/28b4ff481ed59f6fb8969d83ecd14ccf89057395)), closes [#7](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/issues/7)
+
 ## [1.1.1](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.0...v1.1.1) (2024-09-08)
 
 
