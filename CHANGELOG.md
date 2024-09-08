@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.2...v1.1.3) (2024-09-08)
+
+
+### Bug Fixes
+
+* **resolves #9:** Test index.html option. ([d8f90b2](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/d8f90b2138394d1218e3c07bfd14c8bc8bcecf1e)), closes [#9](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/issues/9)
+
 ## [1.1.2](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.1...v1.1.2) (2024-09-08)
 
 
