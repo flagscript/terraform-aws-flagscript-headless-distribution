@@ -5,6 +5,11 @@ variable "domain" {
   type        = string
 }
 
+variable "hosted_zone_name" {
+  description = "Name of the hosted zone to hold the route 53 records."
+  type        = string
+}
+
 # OPTIONAL PARAMETERS
 # These parameters have reasonable defaults.
 variable "default_root_object" {
