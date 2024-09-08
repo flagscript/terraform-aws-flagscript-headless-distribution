@@ -108,7 +108,8 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 
 # Route 53
 data "aws_route53_zone" "site_domain" {
-  name = var.hosted_zone_name
+  provider = aws.dns
+  name     = var.hosted_zone_name
 }
 
 resource "aws_route53_record" "acm_validation_records" {
