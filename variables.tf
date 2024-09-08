@@ -17,3 +17,9 @@ variable "default_root_object" {
   description = "Object that you want CloudFront to return (for example, index.html) when an end user requests the root URL."
   type        = string
 }
+
+variable "deploy_test_index" {
+  default     = false
+  description = "Whether or not to create a test index.html file."
+  type        = bool
+}

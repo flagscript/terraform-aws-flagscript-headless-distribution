@@ -157,3 +157,16 @@ module "distribution_bucket" {
     aws_cloudfront_distribution.cloudfront_distribution.arn
   ]
 }
+
+## Test file
+resource "aws_s3_bucket_object" "test_index" {
+  provider               = aws.dist
+  count                  = var.deploy_test_index ? 1 : 0
+  bucket                 = module.distribution_bucket.bucket_name
+  bucket_key_enabled     = true
+  content                = "Welcome to ${var.domain}! Programming will commence shortly."
+  content_language       = "en-US"
+  content_type           = "text/html"
+  key                    = "index.html"
+  server_side_encryption = "aws:kms"
+}
