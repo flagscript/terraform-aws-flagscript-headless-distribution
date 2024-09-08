@@ -150,7 +150,7 @@ module "distribution_bucket" {
     aws = aws.dist
   }
   source             = "flagscript/flagscript-s3-bucket/aws"
-  version            = "3.0.0"
+  version            = "3.0.1"
   bucket_name_prefix = "cloudfront"
   bucket_name_suffix = local.normalized_origin
   cloudfront_distribution_arns = [
