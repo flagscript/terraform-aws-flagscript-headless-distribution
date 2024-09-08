@@ -159,7 +159,7 @@ module "distribution_bucket" {
 }
 
 ## Test file
-resource "aws_s3_bucket_object" "test_index" {
+resource "aws_s3_object" "test_index" {
   provider               = aws.dist
   count                  = var.deploy_test_index ? 1 : 0
   bucket                 = module.distribution_bucket.bucket_name
