@@ -10,7 +10,6 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.60 |
 | <a name="provider_aws.dist"></a> [aws.dist](#provider\_aws.dist) | >= 5.60 |
 | <a name="provider_aws.dns"></a> [aws.dns](#provider\_aws.dns) | >= 5.60 |
 
