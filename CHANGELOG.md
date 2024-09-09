@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.5...v1.1.6) (2024-09-09)
+
+
+### Bug Fixes
+
+* **resolves #15:** Use AES256. ([a1c6309](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/a1c630986730cabc61701075398349b4953d1447)), closes [#15](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/issues/15)
+
 ## [1.1.5](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.4...v1.1.5) (2024-09-08)
 
 
