@@ -150,12 +150,13 @@ module "distribution_bucket" {
     aws = aws.dist
   }
   source             = "flagscript/flagscript-s3-bucket/aws"
-  version            = "3.0.1"
+  version            = "3.1.0"
   bucket_name_prefix = "cloudfront"
   bucket_name_suffix = local.normalized_origin
   cloudfront_distribution_arns = [
     aws_cloudfront_distribution.cloudfront_distribution.arn
   ]
+  use_aws_owned_kms = true
 }
 
 ## Test file
@@ -168,5 +169,5 @@ resource "aws_s3_object" "test_index" {
   content_language       = "en-US"
   content_type           = "text/html"
   key                    = "index.html"
-  server_side_encryption = "aws:kms"
+  server_side_encryption = "AES256"
 }
