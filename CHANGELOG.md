@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.2.0...v1.2.1) (2024-09-10)
+
+
+### Bug Fixes
+
+* **resolves #19:** Add missing providers. ([5b8c007](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/5b8c0076c0cc1e51af99fdd8e6a3708000f4d529)), closes [#19](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/issues/19)
+
 # [1.2.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.6...v1.2.0) (2024-09-10)
 
 
