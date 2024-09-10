@@ -106,6 +106,106 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 
 }
 
+# Iam 
+## Oidc Role
+data "aws_iam_openid_connect_provider" "github_oidc_provider" {
+  url = "https://token.actions.githubusercontent.com"
+}
+
+locals {
+  github_global_deploy = var.github_deployment_type == "all"
+  github_deploy_type = (
+    local.github_global_deploy ? "*" :
+    var.github_deployment_type == "branch" ? "ref:refs/heads/" : "environment:"
+  )
+  github_target = local.github_global_deploy ? "" : var.github_deployment_target
+}
+
+data "aws_iam_policy_document" "oidc_assume_role_policy_document" {
+  statement {
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+    effect  = "Allow"
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+    condition {
+      test     = "StringLike"
+      variable = "token.actions.githubusercontent.com:sub"
+      values = [
+        "repo:${var.github_repository}:${local.github_deploy_type}${local.github_target}"
+      ]
+    }
+    principals {
+      type        = "Federated"
+      identifiers = [data.aws_iam_openid_connect_provider.github_oidc_provider.arn]
+    }
+
+  }
+
+}
+
+locals {
+  github_iam_prefix = replace(title(replace(var.domain, ".", " ")), " ", "")
+  github_role_name  = "${local.github_iam_prefix}GithubDeploymentRole"
+}
+
+resource "aws_iam_role" "github_deployment_role" {
+  assume_role_policy = data.aws_iam_policy_document.oidc_assume_role_policy_document.json
+  description        = "Github deployment role for the ${var.domain} site."
+  name               = local.github_role_name
+  path               = "/github/"
+  tags = merge(
+    local.common_tags,
+    {
+      Name = local.github_role_name
+    }
+  )
+}
+
+## Oidc Policy
+data "aws_iam_policy_document" "github_deployment_policy_document" {
+  statement {
+    actions = [
+      "s3:ListBucket",
+    ]
+    effect    = "Allow"
+    resources = [module.distribution_bucket.bucket_arn]
+    sid       = "GitHubS3BucketPermissions"
+  }
+  statement {
+    actions = [
+      "s3:AbortMultipartUpload",
+      "s3:PutObject*",
+    ]
+    effect    = "Allow"
+    resources = ["${module.distribution_bucket.bucket_arn}/*"]
+    sid       = "GitHubS3ObjectPermissions"
+  }
+}
+locals {
+  github_policy_name = "${local.github_iam_prefix}GithubDeploymentPolicy"
+}
+
+resource "aws_iam_policy" "github_deployment_policy" {
+  description = "Github deployment role for the ${var.domain} site."
+  name        = local.github_policy_name
+  path        = "/github/"
+  policy      = data.aws_iam_policy_document.github_deployment_policy_document.json
+  tags = merge(
+    local.common_tags,
+    {
+      Name = local.github_policy_name
+    }
+  )
+}
+
+resource "aws_iam_role_policy_attachment" "github_deployment_role_policy_attachment" {
+  role       = local.github_role_name
+  policy_arn = aws_iam_policy.github_deployment_policy.arn
+}
+
 # Route 53
 data "aws_route53_zone" "site_domain" {
   provider = aws.dns
