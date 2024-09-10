@@ -109,7 +109,8 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 # Iam 
 ## Oidc Role
 data "aws_iam_openid_connect_provider" "github_oidc_provider" {
-  url = "https://token.actions.githubusercontent.com"
+  provider = aws.dist
+  url      = "https://token.actions.githubusercontent.com"
 }
 
 locals {
@@ -152,6 +153,7 @@ locals {
 }
 
 resource "aws_iam_role" "github_deployment_role" {
+  provider           = aws.dist
   assume_role_policy = data.aws_iam_policy_document.oidc_assume_role_policy_document.json
   description        = "Github deployment role for the ${var.domain} site."
   name               = local.github_role_name
@@ -189,6 +191,7 @@ locals {
 }
 
 resource "aws_iam_policy" "github_deployment_policy" {
+  provider    = aws.dist
   description = "Github deployment role for the ${var.domain} site."
   name        = local.github_policy_name
   path        = "/github/"
@@ -202,6 +205,7 @@ resource "aws_iam_policy" "github_deployment_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "github_deployment_role_policy_attachment" {
+  provider   = aws.dist
   role       = local.github_role_name
   policy_arn = aws_iam_policy.github_deployment_policy.arn
 }

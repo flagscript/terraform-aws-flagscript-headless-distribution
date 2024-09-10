@@ -26,7 +26,7 @@ variable "deploy_test_index" {
 
 variable "github_deployment_target" {
   default     = "main"
-  description = "The branch or environment to deploy to. Keyword 'all' may be used for a wildcard."
+  description = "The branch or environment to deploy to. The '*' charachter may be used wildcard."
   type        = string
 }
 
