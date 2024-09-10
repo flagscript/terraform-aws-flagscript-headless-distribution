@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.6...v1.2.0) (2024-09-10)
+
+
+### Features
+
+* **resolves #17:** Github deployment role. ([b66dc7c](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/b66dc7c2866fa5c70f35b8e8008103ad44d24688)), closes [#17](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/issues/17)
+
 ## [1.1.6](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.1.5...v1.1.6) (2024-09-09)
 
 
