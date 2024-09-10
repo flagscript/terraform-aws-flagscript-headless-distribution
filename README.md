@@ -47,7 +47,7 @@
 | <a name="input_default_root_object"></a> [default\_root\_object](#input\_default\_root\_object) | Object that you want CloudFront to return (for example, index.html) when an end user requests the root URL. | `string` | `"index.html"` | no |
 | <a name="input_deploy_test_index"></a> [deploy\_test\_index](#input\_deploy\_test\_index) | Whether or not to create a test index.html file. | `bool` | `false` | no |
 | <a name="input_domain"></a> [domain](#input\_domain) | The domain of the headless website. | `string` | n/a | yes |
-| <a name="input_github_deployment_target"></a> [github\_deployment\_target](#input\_github\_deployment\_target) | The branch or environment to deploy to. Keyword 'all' may be used for a wildcard. | `string` | `"main"` | no |
+| <a name="input_github_deployment_target"></a> [github\_deployment\_target](#input\_github\_deployment\_target) | The branch or environment to deploy to. The '*' charachter may be used wildcard. | `string` | `"main"` | no |
 | <a name="input_github_deployment_type"></a> [github\_deployment\_type](#input\_github\_deployment\_type) | Whether github actions should deploy on branch or environment. All may be used for a global wildcard. | `string` | `"branch"` | no |
 | <a name="input_github_repository"></a> [github\_repository](#input\_github\_repository) | The github repository to push the website. | `string` | `""` | no |
 | <a name="input_hosted_zone_name"></a> [hosted\_zone\_name](#input\_hosted\_zone\_name) | Name of the hosted zone to hold the route 53 records. | `string` | n/a | yes |
