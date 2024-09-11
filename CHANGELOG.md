@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.2.3...v1.2.4) (2024-09-11)
+
+
+### Bug Fixes
+
+* **testing:** Test readd policy. ([a1dddec](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/a1dddec41ff4a53d7cc0c4488705ab8ea307c8c4))
+
 ## [1.2.3](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.2.2...v1.2.3) (2024-09-11)
 
 
