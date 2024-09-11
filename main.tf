@@ -147,10 +147,10 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 
 # }
 
-# locals {
-#   github_iam_prefix = replace(title(replace(var.domain, ".", " ")), " ", "")
-#   github_role_name  = "${local.github_iam_prefix}GithubDeploymentRole"
-# }
+locals {
+  github_iam_prefix = replace(title(replace(var.domain, ".", " ")), " ", "")
+  github_role_name  = "${local.github_iam_prefix}GithubDeploymentRole"
+}
 
 # resource "aws_iam_role" "github_deployment_role" {
 #   provider           = aws.dist
@@ -167,48 +167,49 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 # }
 
 ## Oidc Policy
-# data "aws_iam_policy_document" "github_deployment_policy_document" {
-#   statement {
-#     actions = [
-#       "s3:ListBucket",
-#     ]
-#     effect    = "Allow"
-#     resources = [module.distribution_bucket.bucket_arn]
-#     sid       = "GitHubS3BucketPermissions"
-#   }
-#   statement {
-#     actions = [
-#       "s3:AbortMultipartUpload",
-#       "s3:PutObject*",
-#     ]
-#     effect    = "Allow"
-#     resources = ["${module.distribution_bucket.bucket_arn}/*"]
-#     sid       = "GitHubS3ObjectPermissions"
-#   }
-# }
-# locals {
-#   github_policy_name = "${local.github_iam_prefix}GithubDeploymentPolicy"
-# }
+data "aws_iam_policy_document" "github_deployment_policy_document" {
+  statement {
+    actions = [
+      "s3:ListBucket",
+    ]
+    effect    = "Allow"
+    resources = [module.distribution_bucket.bucket_arn]
+    sid       = "GitHubS3BucketPermissions"
+  }
+  statement {
+    actions = [
+      "s3:AbortMultipartUpload",
+      "s3:PutObject*",
+    ]
+    effect    = "Allow"
+    resources = ["${module.distribution_bucket.bucket_arn}/*"]
+    sid       = "GitHubS3ObjectPermissions"
+  }
+}
 
-# resource "aws_iam_policy" "github_deployment_policy" {
-#   provider    = aws.dist
-#   description = "Github deployment role for the ${var.domain} site."
-#   name        = local.github_policy_name
-#   path        = "/github/"
-#   policy      = data.aws_iam_policy_document.github_deployment_policy_document.json
-#   tags = merge(
-#     local.common_tags,
-#     {
-#       Name = local.github_policy_name
-#     }
-#   )
-# }
+locals {
+  github_policy_name = "${local.github_iam_prefix}GithubDeploymentPolicy"
+}
 
-# resource "aws_iam_role_policy_attachment" "github_deployment_role_policy_attachment" {
-#   provider   = aws.dist
-#   role       = local.github_role_name
-#   policy_arn = aws_iam_policy.github_deployment_policy.arn
-# }
+resource "aws_iam_policy" "github_deployment_policy" {
+  provider    = aws.dist
+  description = "Github deployment role for the ${var.domain} site."
+  name        = local.github_policy_name
+  path        = "/github/"
+  policy      = data.aws_iam_policy_document.github_deployment_policy_document.json
+  tags = merge(
+    local.common_tags,
+    {
+      Name = local.github_policy_name
+    }
+  )
+}
+
+resource "aws_iam_role_policy_attachment" "github_deployment_role_policy_attachment" {
+  provider   = aws.dist
+  role       = local.github_role_name
+  policy_arn = aws_iam_policy.github_deployment_policy.arn
+}
 
 # # Route 53
 data "aws_route53_zone" "site_domain" {
