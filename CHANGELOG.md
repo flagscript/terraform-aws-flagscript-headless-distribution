@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.2.1...v1.2.2) (2024-09-11)
+
+
+### Bug Fixes
+
+* **testing:** Remove iam roles for now. ([2647e8c](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/2647e8c7cbbc77e4205f1e58386fe2beb608dfd2))
+
 ## [1.2.1](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.2.0...v1.2.1) (2024-09-10)
 
 
