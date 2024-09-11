@@ -211,41 +211,41 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 # }
 
 # # Route 53
-# data "aws_route53_zone" "site_domain" {
-#   provider = aws.dns
-#   name     = var.hosted_zone_name
-# }
+data "aws_route53_zone" "site_domain" {
+  provider = aws.dns
+  name     = var.hosted_zone_name
+}
 
-# resource "aws_route53_record" "acm_validation_records" {
-#   provider = aws.dns
-#   for_each = {
-#     for dvo in aws_acm_certificate.distribution_certificate.domain_validation_options : dvo.domain_name => {
-#       name   = dvo.resource_record_name
-#       record = dvo.resource_record_value
-#       type   = dvo.resource_record_type
-#     }
-#   }
+resource "aws_route53_record" "acm_validation_records" {
+  provider = aws.dns
+  for_each = {
+    for dvo in aws_acm_certificate.distribution_certificate.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
 
-#   allow_overwrite = true
-#   name            = each.value.name
-#   records         = [each.value.record]
-#   ttl             = 500
-#   type            = each.value.type
-#   zone_id         = data.aws_route53_zone.site_domain.zone_id
-# }
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 500
+  type            = each.value.type
+  zone_id         = data.aws_route53_zone.site_domain.zone_id
+}
 
-# resource "aws_route53_record" "apex_record" {
-#   provider = aws.dns
-#   zone_id  = data.aws_route53_zone.site_domain.zone_id
-#   name     = var.domain
-#   type     = "A"
+resource "aws_route53_record" "apex_record" {
+  provider = aws.dns
+  zone_id  = data.aws_route53_zone.site_domain.zone_id
+  name     = var.domain
+  type     = "A"
 
-#   alias {
-#     name                   = aws_cloudfront_distribution.cloudfront_distribution.domain_name
-#     zone_id                = aws_cloudfront_distribution.cloudfront_distribution.hosted_zone_id
-#     evaluate_target_health = false
-#   }
-# }
+  alias {
+    name                   = aws_cloudfront_distribution.cloudfront_distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.cloudfront_distribution.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
 
 # S3
 ## Distribution origin
