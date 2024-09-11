@@ -108,144 +108,144 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 
 # Iam 
 ## Oidc Role
-data "aws_iam_openid_connect_provider" "github_oidc_provider" {
-  provider = aws.dist
-  url      = "https://token.actions.githubusercontent.com"
-}
+# data "aws_iam_openid_connect_provider" "github_oidc_provider" {
+#   provider = aws.dist
+#   url      = "https://token.actions.githubusercontent.com"
+# }
 
-locals {
-  github_global_deploy = var.github_deployment_type == "all"
-  github_deploy_type = (
-    local.github_global_deploy ? "*" :
-    var.github_deployment_type == "branch" ? "ref:refs/heads/" : "environment:"
-  )
-  github_target = local.github_global_deploy ? "" : var.github_deployment_target
-}
+# locals {
+#   github_global_deploy = var.github_deployment_type == "all"
+#   github_deploy_type = (
+#     local.github_global_deploy ? "*" :
+#     var.github_deployment_type == "branch" ? "ref:refs/heads/" : "environment:"
+#   )
+#   github_target = local.github_global_deploy ? "" : var.github_deployment_target
+# }
 
-data "aws_iam_policy_document" "oidc_assume_role_policy_document" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-    effect  = "Allow"
-    condition {
-      test     = "StringEquals"
-      variable = "token.actions.githubusercontent.com:aud"
-      values   = ["sts.amazonaws.com"]
-    }
-    condition {
-      test     = "StringLike"
-      variable = "token.actions.githubusercontent.com:sub"
-      values = [
-        "repo:${var.github_repository}:${local.github_deploy_type}${local.github_target}"
-      ]
-    }
-    principals {
-      type        = "Federated"
-      identifiers = [data.aws_iam_openid_connect_provider.github_oidc_provider.arn]
-    }
+# data "aws_iam_policy_document" "oidc_assume_role_policy_document" {
+#   statement {
+#     actions = ["sts:AssumeRoleWithWebIdentity"]
+#     effect  = "Allow"
+#     condition {
+#       test     = "StringEquals"
+#       variable = "token.actions.githubusercontent.com:aud"
+#       values   = ["sts.amazonaws.com"]
+#     }
+#     condition {
+#       test     = "StringLike"
+#       variable = "token.actions.githubusercontent.com:sub"
+#       values = [
+#         "repo:${var.github_repository}:${local.github_deploy_type}${local.github_target}"
+#       ]
+#     }
+#     principals {
+#       type        = "Federated"
+#       identifiers = [data.aws_iam_openid_connect_provider.github_oidc_provider.arn]
+#     }
 
-  }
+#   }
 
-}
+# }
 
-locals {
-  github_iam_prefix = replace(title(replace(var.domain, ".", " ")), " ", "")
-  github_role_name  = "${local.github_iam_prefix}GithubDeploymentRole"
-}
+# locals {
+#   github_iam_prefix = replace(title(replace(var.domain, ".", " ")), " ", "")
+#   github_role_name  = "${local.github_iam_prefix}GithubDeploymentRole"
+# }
 
-resource "aws_iam_role" "github_deployment_role" {
-  provider           = aws.dist
-  assume_role_policy = data.aws_iam_policy_document.oidc_assume_role_policy_document.json
-  description        = "Github deployment role for the ${var.domain} site."
-  name               = local.github_role_name
-  path               = "/github/"
-  tags = merge(
-    local.common_tags,
-    {
-      Name = local.github_role_name
-    }
-  )
-}
+# resource "aws_iam_role" "github_deployment_role" {
+#   provider           = aws.dist
+#   assume_role_policy = data.aws_iam_policy_document.oidc_assume_role_policy_document.json
+#   description        = "Github deployment role for the ${var.domain} site."
+#   name               = local.github_role_name
+#   path               = "/github/"
+#   tags = merge(
+#     local.common_tags,
+#     {
+#       Name = local.github_role_name
+#     }
+#   )
+# }
 
 ## Oidc Policy
-data "aws_iam_policy_document" "github_deployment_policy_document" {
-  statement {
-    actions = [
-      "s3:ListBucket",
-    ]
-    effect    = "Allow"
-    resources = [module.distribution_bucket.bucket_arn]
-    sid       = "GitHubS3BucketPermissions"
-  }
-  statement {
-    actions = [
-      "s3:AbortMultipartUpload",
-      "s3:PutObject*",
-    ]
-    effect    = "Allow"
-    resources = ["${module.distribution_bucket.bucket_arn}/*"]
-    sid       = "GitHubS3ObjectPermissions"
-  }
-}
-locals {
-  github_policy_name = "${local.github_iam_prefix}GithubDeploymentPolicy"
-}
+# data "aws_iam_policy_document" "github_deployment_policy_document" {
+#   statement {
+#     actions = [
+#       "s3:ListBucket",
+#     ]
+#     effect    = "Allow"
+#     resources = [module.distribution_bucket.bucket_arn]
+#     sid       = "GitHubS3BucketPermissions"
+#   }
+#   statement {
+#     actions = [
+#       "s3:AbortMultipartUpload",
+#       "s3:PutObject*",
+#     ]
+#     effect    = "Allow"
+#     resources = ["${module.distribution_bucket.bucket_arn}/*"]
+#     sid       = "GitHubS3ObjectPermissions"
+#   }
+# }
+# locals {
+#   github_policy_name = "${local.github_iam_prefix}GithubDeploymentPolicy"
+# }
 
-resource "aws_iam_policy" "github_deployment_policy" {
-  provider    = aws.dist
-  description = "Github deployment role for the ${var.domain} site."
-  name        = local.github_policy_name
-  path        = "/github/"
-  policy      = data.aws_iam_policy_document.github_deployment_policy_document.json
-  tags = merge(
-    local.common_tags,
-    {
-      Name = local.github_policy_name
-    }
-  )
-}
+# resource "aws_iam_policy" "github_deployment_policy" {
+#   provider    = aws.dist
+#   description = "Github deployment role for the ${var.domain} site."
+#   name        = local.github_policy_name
+#   path        = "/github/"
+#   policy      = data.aws_iam_policy_document.github_deployment_policy_document.json
+#   tags = merge(
+#     local.common_tags,
+#     {
+#       Name = local.github_policy_name
+#     }
+#   )
+# }
 
-resource "aws_iam_role_policy_attachment" "github_deployment_role_policy_attachment" {
-  provider   = aws.dist
-  role       = local.github_role_name
-  policy_arn = aws_iam_policy.github_deployment_policy.arn
-}
+# resource "aws_iam_role_policy_attachment" "github_deployment_role_policy_attachment" {
+#   provider   = aws.dist
+#   role       = local.github_role_name
+#   policy_arn = aws_iam_policy.github_deployment_policy.arn
+# }
 
-# Route 53
-data "aws_route53_zone" "site_domain" {
-  provider = aws.dns
-  name     = var.hosted_zone_name
-}
+# # Route 53
+# data "aws_route53_zone" "site_domain" {
+#   provider = aws.dns
+#   name     = var.hosted_zone_name
+# }
 
-resource "aws_route53_record" "acm_validation_records" {
-  provider = aws.dns
-  for_each = {
-    for dvo in aws_acm_certificate.distribution_certificate.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
-    }
-  }
+# resource "aws_route53_record" "acm_validation_records" {
+#   provider = aws.dns
+#   for_each = {
+#     for dvo in aws_acm_certificate.distribution_certificate.domain_validation_options : dvo.domain_name => {
+#       name   = dvo.resource_record_name
+#       record = dvo.resource_record_value
+#       type   = dvo.resource_record_type
+#     }
+#   }
 
-  allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 500
-  type            = each.value.type
-  zone_id         = data.aws_route53_zone.site_domain.zone_id
-}
+#   allow_overwrite = true
+#   name            = each.value.name
+#   records         = [each.value.record]
+#   ttl             = 500
+#   type            = each.value.type
+#   zone_id         = data.aws_route53_zone.site_domain.zone_id
+# }
 
-resource "aws_route53_record" "apex_record" {
-  provider = aws.dns
-  zone_id  = data.aws_route53_zone.site_domain.zone_id
-  name     = var.domain
-  type     = "A"
+# resource "aws_route53_record" "apex_record" {
+#   provider = aws.dns
+#   zone_id  = data.aws_route53_zone.site_domain.zone_id
+#   name     = var.domain
+#   type     = "A"
 
-  alias {
-    name                   = aws_cloudfront_distribution.cloudfront_distribution.domain_name
-    zone_id                = aws_cloudfront_distribution.cloudfront_distribution.hosted_zone_id
-    evaluate_target_health = false
-  }
-}
+#   alias {
+#     name                   = aws_cloudfront_distribution.cloudfront_distribution.domain_name
+#     zone_id                = aws_cloudfront_distribution.cloudfront_distribution.hosted_zone_id
+#     evaluate_target_health = false
+#   }
+# }
 
 # S3
 ## Distribution origin
