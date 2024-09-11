@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.2.2...v1.2.3) (2024-09-11)
+
+
+### Bug Fixes
+
+* **testing:** Test readd dns. ([e587040](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/e587040491405b1b6ddcab40bc18caa79b7fc099))
+
 ## [1.2.2](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.2.1...v1.2.2) (2024-09-11)
 
 
