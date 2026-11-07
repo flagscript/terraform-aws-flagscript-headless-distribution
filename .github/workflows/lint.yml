@@ -1,0 +1,36 @@
+name: TFLint
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+
+permissions:
+  contents: read # default for all jobs
+
+jobs:
+  tflint:
+    name: TFLint Pipeline
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # push tags, create GitHub releases
+      issues: write # comment on/label released issues
+      pull-requests: write # comment on released PRs
+      id-token: write # only if using npm provenance / trusted publishing
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v5
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v6
+        with:
+          tflint_version: latest
+          cache: true
+      - name: Show TFLint version
+        run: tflint --version
+      - name: Init TFLint
+        run: tflint --init
+        env:
+          # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run TFLint
+        run: tflint -f compact
