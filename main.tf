@@ -1,3 +1,26 @@
+resource "aws_cloudfront_cache_policy" "default_cache_policy" {
+  provider    = aws.dist
+  comment     = "${var.domain} default cache policy"
+  default_ttl = 86400
+  max_ttl     = 86400
+  min_ttl     = 0
+  name        = "${local.normalized_domain}-default-cache-policy"
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config {
+      cookie_behavior = "none"
+    }
+    headers_config {
+      header_behavior = "none"
+    }
+    query_strings_config {
+      query_string_behavior = "none"
+    }
+    enable_accept_encoding_brotli = true
+    enable_accept_encoding_gzip   = true
+  }
+}
+
 
 resource "aws_cloudfront_distribution" "cloudfront_distribution" {
   provider            = aws.dist

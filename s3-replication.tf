@@ -113,7 +113,7 @@ resource "aws_iam_role_policy" "replication" {
 # Replication config (only on the primary = one-way)
 resource "aws_s3_bucket_replication_configuration" "distribution_replication_primary_to_secondary" {
   depends_on = [ # Versioning and encryption must be enabled before the replication config is applied
-    aws_s3_bucket_versioning.aws_s3_bucket_versioning,
+    aws_s3_bucket_versioning.website_distribution_bucket_versioning,
     aws_s3_bucket_server_side_encryption_configuration.website_distribution_bucket_encryption
   ]
 
