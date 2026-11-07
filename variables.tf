@@ -45,7 +45,7 @@ variable "bucket_encryption_keys" {
 
 variable "custom_404_page" {
   default     = "/404.html"
-  description = "Optional custom 404 page to redirect to."
+  description = "Path to the custom 404 page."
   type        = string
 }
 
@@ -55,9 +55,15 @@ variable "default_root_object" {
   type        = string
 }
 
+variable "failover_status_codes" {
+  default     = [500, 502, 503, 504]
+  description = "HTTP status codes that trigger failover to the backup origin."
+  type        = list(number)
+}
+
 variable "http_version" {
   default     = "http2"
-  description = "Maximum HTTP version to support on the distribution. "
+  description = "Maximum HTTP version to support on the distribution."
   type        = string
 
   validation {
@@ -74,6 +80,18 @@ variable "price_class" {
     condition     = can(regex("^(PriceClass_All|PriceClass_200|PriceClass_100)$", var.price_class))
     error_message = "Must be acceptable cloudfront price class."
   }
+}
+
+variable "origin_connection_attempts" {
+  default     = 2
+  description = "Number of times CloudFront attempts to connect to the origin."
+  type        = number
+}
+
+variable "origin_connection_timeout" {
+  default     = 5
+  description = "Maximum time in seconds that CloudFront waits when trying to establish a connection to the origin."
+  type        = number
 }
 
 variable "s3_origin_backup_region" {

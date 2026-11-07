@@ -61,8 +61,8 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
   dynamic "origin" {
     for_each = aws_s3_bucket.website_distribution_bucket
     content {
-      connection_attempts      = 2
-      connection_timeout       = 5
+      connection_attempts      = var.origin_connection_attempts
+      connection_timeout       = var.origin_connection_timeout
       domain_name              = origin.value.bucket_regional_domain_name
       origin_access_control_id = aws_cloudfront_origin_access_control.origin_access_control.id
       origin_id                = origin.key == var.s3_origin_primary_region ? "primary" : "secondary"
@@ -75,20 +75,12 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
     content {
       origin_id = origin_group.value
       failover_criteria {
-        status_codes = [500, 502, 503, 504]
+        status_codes = var.failover_status_codes
       }
       member { origin_id = "primary" }
       member { origin_id = "secondary" }
     }
   }
-
-  # origin {
-  #   connection_attempts      = 3
-  #   connection_timeout       = 10
-  #   domain_name              = aws_s3_bucket.website_distribution_bucket.bucket_regional_domain_name
-  #   origin_access_control_id = aws_cloudfront_origin_access_control.origin_access_control.id
-  #   origin_id                = local.s3_origin_id
-  # }
 
   restrictions {
     geo_restriction {
