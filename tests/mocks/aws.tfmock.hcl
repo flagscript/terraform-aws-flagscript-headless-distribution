@@ -6,6 +6,14 @@
 
 # IAM policy documents feed `assume_role_policy` and bucket policies, which the provider checks
 # are valid JSON policies. A random string fails that check, so return an empty policy.
+# The account ID is part of bucket names. Use a realistic 12-digit value so name-length tests
+# measure what AWS would actually see.
+mock_data "aws_caller_identity" {
+  defaults = {
+    account_id = "123456789012"
+  }
+}
+
 mock_data "aws_iam_policy_document" {
   defaults = {
     json = "{\"Version\":\"2012-10-17\",\"Statement\":[]}"
