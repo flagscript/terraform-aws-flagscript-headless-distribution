@@ -68,14 +68,14 @@ This module requires two aliased AWS providers:
 
 | Name | Version |
 | ---- | ------- |
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.15 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 6.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.16 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.72 |
 
 ## Providers
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_aws.dist"></a> [aws.dist](#provider\_aws.dist) | ~> 6.0 |
+| <a name="provider_aws.dist"></a> [aws.dist](#provider\_aws.dist) | >= 6.72 |
 
 ## Resources
 
@@ -115,7 +115,12 @@ This module requires two aliased AWS providers:
 
 | Name | Description |
 | ---- | ----------- |
+| <a name="output_acm_certificate_arn"></a> [acm\_certificate\_arn](#output\_acm\_certificate\_arn) | ARN for the ACM certificate. |
 | <a name="output_distribution_arn"></a> [distribution\_arn](#output\_distribution\_arn) | ARN for the distribution. |
+| <a name="output_distribution_bucket_arn"></a> [distribution\_bucket\_arn](#output\_distribution\_bucket\_arn) | Regional map of ARN for the S3 bucket. |
+| <a name="output_distribution_bucket_name"></a> [distribution\_bucket\_name](#output\_distribution\_bucket\_name) | Regional map of name for the S3 bucket. |
+| <a name="output_distribution_domain_name"></a> [distribution\_domain\_name](#output\_distribution\_domain\_name) | Domain name for the distribution. |
+| <a name="output_distribution_hosted_zone_id"></a> [distribution\_hosted\_zone\_id](#output\_distribution\_hosted\_zone\_id) | Hosted zone ID for the distribution. |
 | <a name="output_distribution_id"></a> [distribution\_id](#output\_distribution\_id) | Identifier for the distribution. |
 
 ## Contributing
