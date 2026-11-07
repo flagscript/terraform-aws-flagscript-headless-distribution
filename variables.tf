@@ -62,7 +62,7 @@ variable "http_version" {
 
   validation {
     condition     = can(regex("^(http1.1|http2|http2and3|http3)$", var.http_version))
-    error_message = "Must be acceptible cloudfront http version."
+    error_message = "Must be acceptable cloudfront http version."
   }
 }
 
@@ -72,7 +72,7 @@ variable "price_class" {
   type        = string
   validation {
     condition     = can(regex("^(PriceClass_All|PriceClass_200|PriceClass_100)$", var.price_class))
-    error_message = "Must be acceptible cloudfront price class."
+    error_message = "Must be acceptable cloudfront price class."
   }
 }
 
@@ -80,6 +80,11 @@ variable "s3_origin_backup_region" {
   default     = null
   description = "The backup region for the S3 origin - will be replicated from the primary region."
   type        = string
+
+  validation {
+    condition     = var.s3_origin_backup_region == null || var.s3_origin_backup_region != var.s3_origin_primary_region
+    error_message = "Backup region must be different from the primary region."
+  }
 }
 
 variable "tags" {

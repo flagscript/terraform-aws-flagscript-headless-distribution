@@ -134,7 +134,7 @@ resource "aws_s3_bucket_replication_configuration" "distribution_replication_pri
       bucket        = aws_s3_bucket.website_distribution_bucket[var.s3_origin_backup_region].arn
       storage_class = "STANDARD" # or STANDARD_IA / GLACIER_IR to save cost on the DR copy
 
-      # NEW: key in the destination region used to re-encrypt replicas
+      # key in the destination region used to re-encrypt replicas
       dynamic "encryption_configuration" {
         for_each = contains(keys(var.bucket_encryption_keys), var.s3_origin_backup_region) ? [true] : []
         content {

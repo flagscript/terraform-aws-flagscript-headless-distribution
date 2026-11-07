@@ -61,8 +61,8 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
   dynamic "origin" {
     for_each = aws_s3_bucket.website_distribution_bucket
     content {
-      connection_attempts      = 3
-      connection_timeout       = 10
+      connection_attempts      = 2
+      connection_timeout       = 5
       domain_name              = origin.value.bucket_regional_domain_name
       origin_access_control_id = aws_cloudfront_origin_access_control.origin_access_control.id
       origin_id                = origin.key == var.s3_origin_primary_region ? "primary" : "secondary"
