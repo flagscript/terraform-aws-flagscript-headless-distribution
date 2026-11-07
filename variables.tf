@@ -5,8 +5,8 @@ variable "domain" {
   type        = string
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9.-]+$", var.domain)) && length(var.domain) < 33
-    error_message = "Domain must contain only letters, numbers, dots, and hyphens and must be less than 33 characters."
+    condition     = can(regex("^[a-z0-9.-]+$", var.domain)) && length(var.domain) < 33
+    error_message = "Domain must contain only lowercase letters, numbers, dots, and hyphens and must be less than 33 characters."
   }
 }
 
@@ -63,17 +63,17 @@ variable "default_root_object" {
 variable "failover_status_codes" {
   default     = [500, 502, 503, 504]
   description = "HTTP status codes that trigger failover to the backup origin."
+  nullable    = false
   type        = list(number)
 
   validation {
     condition = alltrue(
       [
-        var.failover_status_codes != null,
         length(var.failover_status_codes) > 0,
         length(setsubtract(var.failover_status_codes, [400, 403, 404, 416, 500, 502, 503, 504])) == 0
       ],
     )
-    error_message = "Must contain only 400, 403, 404, 416, 500, 502, 503 or 504 and cn not be empty."
+    error_message = "Must contain only 400, 403, 404, 416, 500, 502, 503 or 504 and can not be empty."
   }
 }
 
@@ -104,8 +104,8 @@ variable "origin_connection_attempts" {
   type        = number
 
   validation {
-    condition     = var.origin_connection_attempts >= 1 && var.origin_connection_attempts <= 3
-    error_message = "Must be between 1 and 3."
+    condition     = var.origin_connection_attempts >= 1 && var.origin_connection_attempts <= 3 && floor(var.origin_connection_attempts) == var.origin_connection_attempts
+    error_message = "Must be a whole number between 1 and 3."
   }
 }
 
@@ -115,8 +115,8 @@ variable "origin_connection_timeout" {
   type        = number
 
   validation {
-    condition     = var.origin_connection_timeout >= 1 && var.origin_connection_timeout <= 10
-    error_message = "Must be between 1 and 10."
+    condition     = var.origin_connection_timeout >= 1 && var.origin_connection_timeout <= 10 && floor(var.origin_connection_timeout) == var.origin_connection_timeout
+    error_message = "Must be a whole number between 1 and 10."
   }
 }
 
