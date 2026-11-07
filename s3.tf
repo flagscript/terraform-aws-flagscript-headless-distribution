@@ -4,13 +4,13 @@ resource "aws_s3_bucket" "website_distribution_bucket" {
   for_each         = toset(local.deployment_regions)
   provider         = aws.dist
   region           = each.key
-  bucket           = "${local.normalized_domain}-distribution-${local.distribution_account_id}-${each.key}-an"
+  bucket           = "${local.normalized_domain}-${local.distribution_account_id}-${each.key}-an"
   bucket_namespace = "account-regional"
   force_destroy    = true
   tags = merge(
     local.common_tags,
     {
-      "Name" = "${local.normalized_domain}-distribution-${local.distribution_account_id}-${each.key}-an"
+      "Name" = "${local.normalized_domain}-${local.distribution_account_id}-${each.key}-an"
     },
   )
 }

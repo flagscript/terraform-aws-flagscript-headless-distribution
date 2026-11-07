@@ -3,6 +3,11 @@
 variable "domain" {
   description = "The domain of the headless website."
   type        = string
+
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9.-]+$", var.domain)) && length(var.domain) < 33
+    error_message = "Domain must contain only letters, numbers, dots, and hyphens and must be less than 33 characters."
+  }
 }
 
 variable "hosted_zone_name" {
@@ -59,6 +64,17 @@ variable "failover_status_codes" {
   default     = [500, 502, 503, 504]
   description = "HTTP status codes that trigger failover to the backup origin."
   type        = list(number)
+
+  validation {
+    condition = alltrue(
+      [
+        var.failover_status_codes != null,
+        length(var.failover_status_codes) > 0,
+        length(setsubtract(var.failover_status_codes, [400, 403, 404, 416, 500, 502, 503, 504])) == 0
+      ],
+    )
+    error_message = "Must contain only 400, 403, 404, 416, 500, 502, 503 or 504 and cn not be empty."
+  }
 }
 
 variable "http_version" {
@@ -86,12 +102,22 @@ variable "origin_connection_attempts" {
   default     = 2
   description = "Number of times CloudFront attempts to connect to the origin."
   type        = number
+
+  validation {
+    condition     = var.origin_connection_attempts >= 1 && var.origin_connection_attempts <= 3
+    error_message = "Must be between 1 and 3."
+  }
 }
 
 variable "origin_connection_timeout" {
   default     = 5
   description = "Maximum time in seconds that CloudFront waits when trying to establish a connection to the origin."
   type        = number
+
+  validation {
+    condition     = var.origin_connection_timeout >= 1 && var.origin_connection_timeout <= 10
+    error_message = "Must be between 1 and 10."
+  }
 }
 
 variable "s3_origin_backup_region" {
