@@ -1,24 +1,5 @@
 const { name } = require("./package.json");
 const moduleName = name.replace(/^@[^/]+\//, "");
-const tarExcludes = [
-  "./.config",
-  "./.github",
-  "./.pnpm-store",
-  "./.vscode",
-  "./node_modules",
-  "./reports",
-  "./tests",
-  "./.gitattributes",
-  "./.gitignore",
-  "./.gitlab-ci.yml",
-  "./.lefthook.yaml",
-  "./.releaserc.js",
-  "./.terraform.lock.hcl",
-  "./package.json",
-  "./pnpm-lock.yaml",
-]
-  .map((p) => `--exclude=${p}`)
-  .join(" ");
 
 module.exports = {
   branches: ["main"],
