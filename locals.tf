@@ -1,7 +1,6 @@
 locals {
   # Aws locals
   distribution_account_id = data.aws_caller_identity.distribution.account_id
-  distribution_partition  = data.aws_partition.distribution.partition
   deployment_regions = concat(
     [var.s3_origin_primary_region],
     var.s3_origin_backup_region != null ? [var.s3_origin_backup_region] : []
