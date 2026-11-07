@@ -5,7 +5,7 @@ Terraform module that creates a private, CloudFront-fronted S3 origin for a head
 ## Features
 
 - **CloudFront distribution** with HTTPS only (redirect), TLS 1.2+, IPv6, compression and an optional custom 404 page.
-- **ACM certificate** for the site domain, issued in `us-east-1` as CloudFront requires.
+- **ACM certificate** for the site domain, requested in `us-east-1` (as CloudFront requires) with DNS validation.
 - **Private S3 origin(s)** reached only through Origin Access Control (OAC). Public access is fully blocked and the bucket policy is scoped to this distribution.
 - **Optional multi-region failover.** Set `s3_origin_backup_region` to create a second bucket, replicate one way from primary to backup, and add a CloudFront origin group that fails over on 5xx responses.
 - **Encryption by default.** SSE-S3 is used unless you pass customer-managed KMS keys per region through `bucket_encryption_keys`. SSE-C is blocked. Replication of KMS-encrypted objects is configured automatically.
@@ -26,7 +26,7 @@ provider "aws" {
 
 module "headless_distribution" {
   source  = "flagscript/flagscript-headless-distribution/aws"
-  version = "~> 2.0"
+  version = "~> 1.3"
 
   providers = {
     aws.dist = aws.dist
