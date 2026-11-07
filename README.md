@@ -94,6 +94,7 @@ In the worst case, CloudFront waits about attempts × timeout seconds (10 by def
 | Name | Version |
 | ---- | ------- |
 | <a name="provider_aws.dist"></a> [aws.dist](#provider\_aws.dist) | >= 6.72 |
+| <a name="provider_aws.dns"></a> [aws.dns](#provider\_aws.dns) | >= 6.72 |
 
 ## Resources
 
@@ -105,6 +106,9 @@ In the worst case, CloudFront waits about attempts × timeout seconds (10 by def
 | [aws_cloudfront_origin_access_control.origin_access_control](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_control) | resource |
 | [aws_iam_role.distribution_replication_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.replication](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_route53_record.cloudfront_a_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_record.cloudfront_aaaa_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_record.website_certificate_validation_records](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_s3_bucket.website_distribution_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_notification.website_distribution_bucket_notifications](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification) | resource |
 | [aws_s3_bucket_policy.website_distribution_bucket_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
@@ -118,7 +122,7 @@ In the worst case, CloudFront waits about attempts × timeout seconds (10 by def
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_domain"></a> [domain](#input\_domain) | The domain of the headless website. | `string` | n/a | yes |
-| <a name="input_hosted_zone_name"></a> [hosted\_zone\_name](#input\_hosted\_zone\_name) | Name of the hosted zone to hold the route 53 records. | `string` | n/a | yes |
+| <a name="input_hosted_zone_id"></a> [hosted\_zone\_id](#input\_hosted\_zone\_id) | Id of the hosted zone to hold the route 53 records. | `string` | n/a | yes |
 | <a name="input_s3_origin_primary_region"></a> [s3\_origin\_primary\_region](#input\_s3\_origin\_primary\_region) | The primary region for the S3 origin. | `string` | n/a | yes |
 | <a name="input_acm_key_algorithm"></a> [acm\_key\_algorithm](#input\_acm\_key\_algorithm) | Specifies the algorithm of the public and private key pair that your Amazon issued certificate uses to encrypt data. | `string` | `"EC_prime256v1"` | no |
 | <a name="input_bucket_encryption_keys"></a> [bucket\_encryption\_keys](#input\_bucket\_encryption\_keys) | Optional KMS keys to use for S3 bucket encryption, keyed by deployment region. | `map(string)` | `{}` | no |

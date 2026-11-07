@@ -10,8 +10,8 @@ variable "domain" {
   }
 }
 
-variable "hosted_zone_name" {
-  description = "Name of the hosted zone to hold the route 53 records."
+variable "hosted_zone_id" {
+  description = "Id of the hosted zone to hold the route 53 records."
   type        = string
 }
 
