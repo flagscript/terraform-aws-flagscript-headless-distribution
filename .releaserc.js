@@ -7,6 +7,7 @@ const tarExcludes = [
   "./.vscode",
   "./node_modules",
   "./reports",
+  "./tests",
   "./.gitattributes",
   "./.gitignore",
   "./.gitlab-ci.yml",
