@@ -1,6 +1,3 @@
-const { name } = require("./package.json");
-const moduleName = name.replace(/^@[^/]+\//, "");
-
 module.exports = {
   branches: ["main"],
   plugins: [
