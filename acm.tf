@@ -1,5 +1,5 @@
 
-# Primary region wildcard acm certificate
+# Distribution acm certificate
 ## certificate
 resource "aws_acm_certificate" "website_certificate" {
   provider          = aws.dist
