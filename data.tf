@@ -1,5 +1,5 @@
 # AWS lookups
-data "aws_partition" "distribution" {
+data "aws_caller_identity" "distribution" {
   provider = aws.dist
 }
 
