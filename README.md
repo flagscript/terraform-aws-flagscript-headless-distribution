@@ -104,9 +104,12 @@ This module requires two aliased AWS providers:
 | <a name="input_s3_origin_primary_region"></a> [s3\_origin\_primary\_region](#input\_s3\_origin\_primary\_region) | The primary region for the S3 origin. | `string` | n/a | yes |
 | <a name="input_acm_key_algorithm"></a> [acm\_key\_algorithm](#input\_acm\_key\_algorithm) | Specifies the algorithm of the public and private key pair that your Amazon issued certificate uses to encrypt data. | `string` | `"EC_prime256v1"` | no |
 | <a name="input_bucket_encryption_keys"></a> [bucket\_encryption\_keys](#input\_bucket\_encryption\_keys) | Optional KMS keys to use for S3 bucket encryption, keyed by deployment region. | `map(string)` | `{}` | no |
-| <a name="input_custom_404_page"></a> [custom\_404\_page](#input\_custom\_404\_page) | Optional custom 404 page to redirect to. | `string` | `"/404.html"` | no |
+| <a name="input_custom_404_page"></a> [custom\_404\_page](#input\_custom\_404\_page) | Path to the custom 404 page. | `string` | `"/404.html"` | no |
 | <a name="input_default_root_object"></a> [default\_root\_object](#input\_default\_root\_object) | Object that you want CloudFront to return (for example, index.html) when an end user requests the root URL. | `string` | `"index.html"` | no |
+| <a name="input_failover_status_codes"></a> [failover\_status\_codes](#input\_failover\_status\_codes) | HTTP status codes that trigger failover to the backup origin. | `list(number)` | <pre>[<br/>  500,<br/>  502,<br/>  503,<br/>  504<br/>]</pre> | no |
 | <a name="input_http_version"></a> [http\_version](#input\_http\_version) | Maximum HTTP version to support on the distribution. | `string` | `"http2"` | no |
+| <a name="input_origin_connection_attempts"></a> [origin\_connection\_attempts](#input\_origin\_connection\_attempts) | Number of times CloudFront attempts to connect to the origin. | `number` | `2` | no |
+| <a name="input_origin_connection_timeout"></a> [origin\_connection\_timeout](#input\_origin\_connection\_timeout) | Maximum time in seconds that CloudFront waits when trying to establish a connection to the origin. | `number` | `5` | no |
 | <a name="input_price_class"></a> [price\_class](#input\_price\_class) | Price class for this distribution. | `string` | `"PriceClass_All"` | no |
 | <a name="input_s3_origin_backup_region"></a> [s3\_origin\_backup\_region](#input\_s3\_origin\_backup\_region) | The backup region for the S3 origin - will be replicated from the primary region. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags to merge into module tags. | `map(string)` | `{}` | no |
