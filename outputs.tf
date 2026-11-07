@@ -1,4 +1,4 @@
-# S3 
+# S3
 output "distribution_bucket_arn" {
   description = "Regional map of ARN for the S3 bucket."
   value       = { for region in local.deployment_regions : region => aws_s3_bucket.website_distribution_bucket[region].arn }
