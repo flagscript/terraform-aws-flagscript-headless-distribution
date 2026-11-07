@@ -38,7 +38,7 @@ terraform apply
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
-| <a name="module_headless_distribution"></a> [headless\_distribution](#module\_headless\_distribution) | flagscript/flagscript-headless-distribution/aws | ~> 2.0 |
+| <a name="module_headless_distribution"></a> [headless\_distribution](#module\_headless\_distribution) | flagscript/flagscript-headless-distribution/aws | ~> 1.3 |
 
 ## Resources
 

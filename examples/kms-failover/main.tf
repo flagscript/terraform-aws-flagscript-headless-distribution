@@ -87,7 +87,7 @@ resource "aws_kms_key" "origin" {
 
 module "headless_distribution" {
   source  = "flagscript/flagscript-headless-distribution/aws"
-  version = "~> 2.0"
+  version = "~> 1.3"
 
   providers = {
     aws.dist = aws.dist
