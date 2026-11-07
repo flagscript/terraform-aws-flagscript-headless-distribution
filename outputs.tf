@@ -33,5 +33,5 @@ output "distribution_id" {
 # ACM
 output "acm_certificate_arn" {
   description = "ARN for the ACM certificate."
-  value       = aws_acm_certificate.website_certificate.arn
+  value       = aws_acm_certificate_validation.website_certificate_validation.certificate_arn
 }
