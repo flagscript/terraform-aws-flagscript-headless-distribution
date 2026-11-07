@@ -33,10 +33,10 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
   price_class         = var.price_class
   # web_acl_id          = var.web_acl_arn
   tags = merge(
-    var.tags,
+    local.common_tags,
     {
       Name = "${local.normalized_domain}-distribution"
-    }
+    },
   )
 
   dynamic "custom_error_response" {
@@ -54,7 +54,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
     cache_policy_id            = aws_cloudfront_cache_policy.default_cache_policy.id
     compress                   = true
     response_headers_policy_id = data.aws_cloudfront_response_headers_policy.security_headers.id
-    target_origin_id           = "s3-failover"
+    target_origin_id           = local.use_s3_failover ? "s3-failover" : "primary"
     viewer_protocol_policy     = "redirect-to-https"
   }
 
@@ -65,21 +65,20 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
       connection_timeout       = 10
       domain_name              = origin.value.bucket_regional_domain_name
       origin_access_control_id = aws_cloudfront_origin_access_control.origin_access_control.id
-      origin_id                = origin.value.region == var.s3_origin_primary_region ? "primary" : "secondary"
+      origin_id                = origin.key == var.s3_origin_primary_region ? "primary" : "secondary"
     }
   }
 
-  origin_group {
-    origin_id = "s3-failover"
-    failover_criteria {
-      status_codes = [500, 502, 503, 504]
-    }
-    member { origin_id = "primary" }
-    dynamic "member" {
-      for_each = var.s3_origin_backup_region == null ? [] : ["secondary"]
-      content {
-        origin_id = "secondary"
+  # Origin groups require exactly two members, so only create one when failing over.
+  dynamic "origin_group" {
+    for_each = local.use_s3_failover ? ["s3-failover"] : []
+    content {
+      origin_id = origin_group.value
+      failover_criteria {
+        status_codes = [500, 502, 503, 504]
       }
+      member { origin_id = "primary" }
+      member { origin_id = "secondary" }
     }
   }
 

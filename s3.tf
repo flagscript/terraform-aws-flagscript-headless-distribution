@@ -8,10 +8,10 @@ resource "aws_s3_bucket" "website_distribution_bucket" {
   bucket_namespace = "account-regional"
   force_destroy    = true
   tags = merge(
+    local.common_tags,
     {
       "Name" = "${local.normalized_domain}-distribution-${local.distribution_account_id}-${each.key}-an"
     },
-    local.common_tags
   )
 }
 
@@ -81,9 +81,12 @@ data "aws_iam_policy_document" "website_distribution_bucket_policy_document" {
 
     actions = [
       "s3:GetObject",
+      "s3:ListBucket",
     ]
 
+    # s3:ListBucket applies to the bucket ARN; it lets S3 return 404 (not 403) for missing keys
     resources = [
+      aws_s3_bucket.website_distribution_bucket[each.key].arn,
       "${aws_s3_bucket.website_distribution_bucket[each.key].arn}/*",
     ]
 

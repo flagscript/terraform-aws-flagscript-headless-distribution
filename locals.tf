@@ -12,8 +12,8 @@ locals {
   use_s3_failover   = var.s3_origin_backup_region != null
   common_tags = merge(
     {
-      "teraform:module:repository" = "https://github.com/flagscript/terraform-aws-flagscript-headless-distribution"
-      "terraform:module"           = "flagscript-headless-distribution"
+      "terraform:module:repository" = "https://github.com/flagscript/terraform-aws-flagscript-headless-distribution"
+      "terraform:module"            = "flagscript-headless-distribution"
     },
     var.tags
   )

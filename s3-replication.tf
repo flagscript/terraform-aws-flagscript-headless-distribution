@@ -17,10 +17,10 @@ resource "aws_iam_role" "distribution_replication_role" {
   description        = "S3 origin replication role for ${var.domain}"
   name               = "${local.title_domain}DistributionReplicationRole"
   tags = merge(
+    local.common_tags,
     {
       "Name" = "${local.title_domain}DistributionReplicationRole"
     },
-    local.common_tags
   )
 }
 
@@ -71,8 +71,8 @@ data "aws_iam_policy_document" "distribution_replication_policy_document" {
         test     = "StringLike"
         variable = "kms:EncryptionContext:aws:s3:arn"
         values = [
-          aws_s3_bucket.aws_cloudfront_distribution[var.s3_origin_primary_region].arn,        # bucket key is enabled
-          "${aws_s3_bucket.aws_cloudfront_distribution[var.s3_origin_primary_region].arn}/*", # when it isn't
+          aws_s3_bucket.website_distribution_bucket[var.s3_origin_primary_region].arn,        # bucket key is enabled
+          "${aws_s3_bucket.website_distribution_bucket[var.s3_origin_primary_region].arn}/*", # when it isn't
         ]
       }
     }
@@ -93,8 +93,8 @@ data "aws_iam_policy_document" "distribution_replication_policy_document" {
         test     = "StringLike"
         variable = "kms:EncryptionContext:aws:s3:arn"
         values = [
-          aws_s3_bucket.aws_cloudfront_distribution[var.s3_origin_backup_region].arn,        # bucket key is enabled
-          "${aws_s3_bucket.aws_cloudfront_distribution[var.s3_origin_backup_region].arn}/*", # when it isn't
+          aws_s3_bucket.website_distribution_bucket[var.s3_origin_backup_region].arn,        # bucket key is enabled
+          "${aws_s3_bucket.website_distribution_bucket[var.s3_origin_backup_region].arn}/*", # when it isn't
         ]
       }
     }
@@ -120,7 +120,7 @@ resource "aws_s3_bucket_replication_configuration" "distribution_replication_pri
   count    = local.use_s3_failover ? 1 : 0
   provider = aws.dist
   bucket   = aws_s3_bucket.website_distribution_bucket[var.s3_origin_primary_region].id
-  role     = aws_iam_role.distribution_replication_role[0].id
+  role     = aws_iam_role.distribution_replication_role[0].arn
 
   rule {
     id     = "replicate-all"

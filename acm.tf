@@ -8,9 +8,10 @@ resource "aws_acm_certificate" "website_certificate" {
   key_algorithm     = var.acm_key_algorithm
   validation_method = "DNS"
   tags = merge(
+    local.common_tags,
     {
-      Name = var.domain
-    }
+      "Name" = var.domain
+    },
   )
 
   options {

@@ -32,6 +32,15 @@ variable "bucket_encryption_keys" {
   default     = {}
   description = "Optional KMS keys to use for S3 bucket encryption, keyed by deployment region."
   type        = map(string)
+
+  validation {
+    condition = (
+      var.s3_origin_backup_region == null ||
+      contains(keys(var.bucket_encryption_keys), var.s3_origin_primary_region) ==
+      contains(keys(var.bucket_encryption_keys), var.s3_origin_backup_region)
+    )
+    error_message = "When using a backup region, provide KMS keys for both regions or neither."
+  }
 }
 
 variable "custom_404_page" {
