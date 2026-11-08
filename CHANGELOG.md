@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.5.0...v1.6.0) (2026-11-08)
+
+
+### Features
+
+* edge cognito client ([50b0e6b](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/50b0e6be11c3354b9c768d94fd1ddb62e096cbe3))
+* edge cognito client, remove public ([b7bb6ad](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/b7bb6ad5cbb73d68b0e4030ef9e7490326285eab))
+
 # [1.5.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.4.0...v1.5.0) (2026-11-08)
 
 
