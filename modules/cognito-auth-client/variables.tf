@@ -46,6 +46,12 @@ variable "access_token_validity_minutes" {
   }
 }
 
+variable "identity_provider_names" {
+  default     = []
+  description = "Names of the social identity providers to enable for this client."
+  type        = list(string)
+}
+
 variable "logout_urls" {
   default     = []
   description = "URLs Cognito may redirect to after sign-out."
