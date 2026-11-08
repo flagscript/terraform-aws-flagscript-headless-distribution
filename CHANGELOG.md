@@ -1,3 +1,25 @@
+# [1.3.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.2.4...v1.3.0) (2026-11-08)
+
+
+### Bug Fixes
+
+* addlow more variable customizations ([0384571](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/03845710a5abd25f18ea0fc23d95233d99995425))
+* limit domain length, remove -distribution from s3 name ([91fdc1e](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/91fdc1e4a6f42c80ec226e67eaa68c866e9ae72b))
+* order certificate validation ([78d3ec6](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/78d3ec6fbf920960186bd1a77f13287bb93e879c))
+* remove partition, restore caller identity ([eb10c9e](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/eb10c9ede58d99b6040f69ff1634f134a925db93))
+* remove unused resources ([ed6dc01](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/ed6dc011510e1853fb1d68714a4c1e83520cdeeb))
+* spelling and output fixes ([0c6961d](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/0c6961de931ed811fe1c6c994a19724cff3724b0))
+* udpate tag order and enforce dual region kms if selected ([39ff55a](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/39ff55a22908e08460946ed7deba88f2d2866405))
+* update validations and comments ([ee26b4a](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/ee26b4a91354c01d3ffd85850a92454d05893332))
+* use current versions ([689dd55](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/689dd55bef3bdd41b296354e0f08a6255b77b906))
+
+
+### Features
+
+* add dns validation and records ([a5869cc](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/a5869cc42dacb979c9376637e83382b7bb696d71))
+* updated headless cloudfront distro with s3 failover ([5255360](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/525536004f090f684d4023c157a6ffada40155be))
+* updated headless cloudfront distro with s3 failover ([9ac2eba](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/9ac2eba6978600c919943ff1c5470e5708b9262f))
+
 ## [1.2.4](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.2.3...v1.2.4) (2024-09-11)
 
 
