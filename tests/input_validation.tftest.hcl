@@ -17,6 +17,7 @@ mock_provider "aws" {
 }
 
 variables {
+  distribution_name        = "example-site"
   domain                   = "www.example.com"
   hosted_zone_id           = "Z0123456789EXAMPLE"
   s3_origin_primary_region = "us-east-1"
@@ -45,22 +46,76 @@ run "domain_with_invalid_characters_is_rejected" {
   expect_failures = [var.domain]
 }
 
-# 32 characters is the limit (see the name-length tests in resource_names.tftest.hcl).
-run "domain_of_33_characters_is_rejected" {
+# 63 characters is the limit, because the normalized domain names the Origin Access Control
+# (64-character limit). See the name-length tests in resource_names.tftest.hcl.
+run "domain_of_64_characters_is_rejected" {
   command = plan
 
   variables {
-    domain = "abcdefghijklmnopqrstuvwxyz123.com"
+    domain = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com"
   }
 
   expect_failures = [var.domain]
 }
 
-run "domain_of_32_characters_is_accepted" {
+run "domain_of_63_characters_is_accepted" {
   command = plan
 
   variables {
-    domain = "abcdefghijklmnopqrstuvwxyz12.com"
+    domain = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com"
+  }
+}
+
+# ---------- distribution_name ----------
+
+# The distribution name is part of the bucket names, which must be lowercase.
+run "uppercase_distribution_name_is_rejected" {
+  command = plan
+
+  variables {
+    distribution_name = "Example-Site"
+  }
+
+  expect_failures = [var.distribution_name]
+}
+
+# Bucket names can't start with a hyphen.
+run "distribution_name_starting_with_hyphen_is_rejected" {
+  command = plan
+
+  variables {
+    distribution_name = "-example"
+  }
+
+  expect_failures = [var.distribution_name]
+}
+
+run "distribution_name_with_dots_is_rejected" {
+  command = plan
+
+  variables {
+    distribution_name = "example.site"
+  }
+
+  expect_failures = [var.distribution_name]
+}
+
+# 19 characters is the limit (see the name-length tests in resource_names.tftest.hcl).
+run "distribution_name_of_20_characters_is_rejected" {
+  command = plan
+
+  variables {
+    distribution_name = "abcdefghijklmnopqrst"
+  }
+
+  expect_failures = [var.distribution_name]
+}
+
+run "distribution_name_of_19_characters_is_accepted" {
+  command = plan
+
+  variables {
+    distribution_name = "abcdefghijklmnopqrs"
   }
 }
 
