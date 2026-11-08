@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.7.0...v1.8.0) (2026-11-08)
+
+
+### Bug Fixes
+
+* currently only allow social providers ([4077a50](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/4077a50f3da869b71481d1ca0a3429ed7cf6b82d))
+
+
+### Features
+
+* add login with amazon ([fd2a876](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/fd2a876a39e0facc6c44ec8e44a7487d394908ad))
+* allow other login providers ([34af07e](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/34af07e71deb7dde8c274b92546425e39e68eed6))
+
 # [1.7.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.6.0...v1.7.0) (2026-11-08)
 
 
