@@ -1,7 +1,7 @@
 # REQUIRED PARAMETERS
 # These parameters must be supplied when consuming this module.
 variable "callback_urls" {
-  description = "URLs Cognito may redirect to after sign-in, e.g. https://www.example.com/auth/callback."
+  description = "URLs Cognito may redirect to after sign-in, e.g. https://www.example.com/auth/callback. This must match the edge function’s redirect path."
   type        = list(string)
 
   validation {

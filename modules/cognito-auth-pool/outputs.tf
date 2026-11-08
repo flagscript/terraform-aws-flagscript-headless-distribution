@@ -24,12 +24,6 @@ output "user_pool_issuer_url" {
   value       = "https://${aws_cognito_user_pool.this.endpoint}"
 }
 
-# User pool public client
-output "public_client_id" {
-  description = "Cognito user pool public client ID."
-  value       = aws_cognito_user_pool_client.public_client.id
-}
-
 # User pool edge client
 output "edge_client_id" {
   description = "Cognito user pool edge client ID."
@@ -38,6 +32,6 @@ output "edge_client_id" {
 
 output "edge_client_secret" {
   description = "Cognito user pool edge client secret."
-  ephemeral   = trus
+  sensitive   = true
   value       = aws_cognito_user_pool_client.edge.client_secret
 }
