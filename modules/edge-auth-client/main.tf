@@ -11,7 +11,7 @@ resource "aws_cognito_user_pool_client" "edge" {
   generate_secret                      = true
   id_token_validity                    = var.access_token_validity_minutes
   logout_urls                          = var.logout_urls
-  name                                 = "${local.user_pool_name}-edge-client"
+  name                                 = var.edge_client_name
   prevent_user_existence_errors        = "ENABLED"
   read_attributes                      = ["email", "email_verified", "given_name", "family_name", "name"]
   refresh_token_validity               = var.refresh_token_validity_days

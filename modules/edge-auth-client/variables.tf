@@ -18,6 +18,11 @@ variable "callback_urls" {
   }
 }
 
+variable "edge_client_name" {
+  description = "Name of the Cognito user pool client."
+  type        = string
+}
+
 variable "user_pool_id" {
   description = "ID of the Cognito user pool."
   type        = string
@@ -45,6 +50,14 @@ variable "logout_urls" {
   default     = []
   description = "URLs Cognito may redirect to after sign-out."
   type        = list(string)
+
+  validation {
+    condition = alltrue([
+      for url in var.logout_urls :
+      can(regex("^(https://[^/#?[:space:]]+|http://localhost(:[0-9]+)?)(/[^#[:space:]]*)?$", url))
+    ])
+    error_message = "Each logout URL must start with https:// (or http://localhost for local development) and must not contain a fragment (#)."
+  }
 }
 
 variable "refresh_token_validity_days" {
@@ -56,10 +69,4 @@ variable "refresh_token_validity_days" {
     condition     = var.refresh_token_validity_days >= 1 && var.refresh_token_validity_days <= 365
     error_message = "refresh_token_validity_days must be between 1 and 365."
   }
-}
-
-variable "tags" {
-  default     = {}
-  description = "Additional tags to merge into module tags."
-  type        = map(string)
 }
