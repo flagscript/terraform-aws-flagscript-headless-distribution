@@ -15,8 +15,8 @@ variable "distribution_name" {
   type        = string
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9-]+$", var.distribution_name)) && length(var.distribution_name) < 20
-    error_message = "Distribution name must contain only letters, numbers, dots, and hyphens and be less than 20 characters."
+    condition     = can(regex("^[a-z0-9-]+$", var.distribution_name)) && length(var.distribution_name) < 20
+    error_message = "Distribution name must contain only lowercase letters, numbers, dots, and hyphens and be less than 20 characters."
   }
 }
 

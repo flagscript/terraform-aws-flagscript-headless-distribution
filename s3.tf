@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "website_distribution_bucket" {
   for_each         = toset(local.deployment_regions)
   provider         = aws.dist
   region           = each.key
-  bucket           = "${local.title_distribution_name}-distribution-${local.distribution_account_id}-${each.key}-an"
+  bucket           = "${local.normalized_distribution_name}-distribution-${local.distribution_account_id}-${each.key}-an"
   bucket_namespace = "account-regional"
   force_destroy    = true
   tags = merge(
