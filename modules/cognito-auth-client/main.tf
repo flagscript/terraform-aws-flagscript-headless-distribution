@@ -1,5 +1,5 @@
 # User Pool Edge Client
-resource "aws_cognito_user_pool_client" "edge" {
+resource "aws_cognito_user_pool_client" "this" {
   region                               = var.user_pool_region
   access_token_validity                = var.access_token_validity_minutes
   allowed_oauth_flows                  = ["code"]
@@ -7,14 +7,17 @@ resource "aws_cognito_user_pool_client" "edge" {
   allowed_oauth_scopes                 = ["openid", "email", "profile"]
   callback_urls                        = var.callback_urls
   enable_token_revocation              = true
-  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"] # no password sign-in through this client
-  generate_secret                      = true
-  id_token_validity                    = var.access_token_validity_minutes
-  logout_urls                          = var.logout_urls
-  name                                 = var.edge_client_name
-  prevent_user_existence_errors        = "ENABLED"
-  read_attributes                      = ["email", "email_verified", "given_name", "family_name", "name"]
-  refresh_token_validity               = var.refresh_token_validity_days
+  explicit_auth_flows = concat(
+    ["ALLOW_REFRESH_TOKEN_AUTH"], # no password sign-in through this client
+    var.public_auth_client ? ["ALLOW_USER_SRP_AUTH"] : []
+  )
+  generate_secret               = var.public_auth_client ? false : true
+  id_token_validity             = var.access_token_validity_minutes
+  logout_urls                   = var.logout_urls
+  name                          = var.edge_client_name
+  prevent_user_existence_errors = "ENABLED"
+  read_attributes               = ["email", "email_verified", "given_name", "family_name", "name"]
+  refresh_token_validity        = var.refresh_token_validity_days
   # Referencing the provider resources (not literal names) makes Terraform
   # create each identity provider before the client that lists it.
   supported_identity_providers = concat(
@@ -40,6 +43,6 @@ resource "aws_cognito_user_pool_client" "edge" {
 resource "aws_cognito_managed_login_branding" "managed_login_pages" {
   region                      = var.user_pool_region
   user_pool_id                = var.user_pool_id
-  client_id                   = aws_cognito_user_pool_client.edge.id
+  client_id                   = aws_cognito_user_pool_client.this.id
   use_cognito_provided_values = true
 }

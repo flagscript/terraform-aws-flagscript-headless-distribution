@@ -113,7 +113,7 @@ This submodule uses the **default** `aws` provider, not an alias. Pass the provi
 | Name | Type |
 | ---- | ---- |
 | [aws_cognito_managed_login_branding.managed_login_pages](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_managed_login_branding) | resource |
-| [aws_cognito_user_pool_client.edge](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_client) | resource |
+| [aws_cognito_user_pool_client.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_client) | resource |
 
 ## Inputs
 
@@ -125,14 +125,15 @@ This submodule uses the **default** `aws` provider, not an alias. Pass the provi
 | <a name="input_user_pool_region"></a> [user\_pool\_region](#input\_user\_pool\_region) | AWS region for the user pool. | `string` | n/a | yes |
 | <a name="input_access_token_validity_minutes"></a> [access\_token\_validity\_minutes](#input\_access\_token\_validity\_minutes) | Lifetime of ID and access tokens. | `number` | `60` | no |
 | <a name="input_logout_urls"></a> [logout\_urls](#input\_logout\_urls) | URLs Cognito may redirect to after sign-out. | `list(string)` | `[]` | no |
+| <a name="input_public_auth_client"></a> [public\_auth\_client](#input\_public\_auth\_client) | Whether the client is a public authentication client. | `bool` | `false` | no |
 | <a name="input_refresh_token_validity_days"></a> [refresh\_token\_validity\_days](#input\_refresh\_token\_validity\_days) | How long a member stays signed in without re-entering credentials. | `number` | `30` | no |
 
 ## Outputs
 
 | Name | Description |
 | ---- | ----------- |
-| <a name="output_edge_client_id"></a> [edge\_client\_id](#output\_edge\_client\_id) | Cognito user pool client ID. |
-| <a name="output_edge_client_secret"></a> [edge\_client\_secret](#output\_edge\_client\_secret) | Cognito user pool client secret. |
+| <a name="output_client_id"></a> [client\_id](#output\_client\_id) | Cognito user pool client ID. |
+| <a name="output_client_secret"></a> [client\_secret](#output\_client\_secret) | Cognito user pool client secret. |
 
 ## Contributing
 

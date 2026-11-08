@@ -60,6 +60,12 @@ variable "logout_urls" {
   }
 }
 
+variable "public_auth_client" {
+  default     = false
+  description = "Whether the client is a public authentication client."
+  type        = bool
+}
+
 variable "refresh_token_validity_days" {
   description = "How long a member stays signed in without re-entering credentials."
   type        = number
