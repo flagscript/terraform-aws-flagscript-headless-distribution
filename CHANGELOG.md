@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.8.0...v1.8.1) (2026-11-08)
+
+
+### Bug Fixes
+
+* add amazon attributes ([348e288](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/348e288b1dd76a9c07005edc8e758eeabbc36200))
+
 # [1.8.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.7.0...v1.8.0) (2026-11-08)
 
 
