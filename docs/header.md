@@ -33,6 +33,7 @@ module "headless_distribution" {
     aws.dns  = aws.dns
   }
 
+  distribution_name        = "example-site"
   domain                   = "www.example.com"
   hosted_zone_id           = "Z0123456789EXAMPLE"
   s3_origin_primary_region = "us-east-1"
@@ -53,7 +54,7 @@ This module requires two aliased AWS providers:
 
 ### Deploying content
 
-Upload your site to the **primary** bucket. Its name is in the `distribution_bucket_name` output, keyed by region (for example `module.headless_distribution.distribution_bucket_name["us-east-1"]`). With failover enabled, the backup bucket is filled by replication. Don't write to it directly.
+Upload your site to the **primary** bucket. Buckets are named `<distribution_name>-distribution-<account_id>-<region>-an` (for example `example-site-distribution-123456789012-us-east-1-an`). The name is also in the `distribution_bucket_name` output, keyed by region (for example `module.headless_distribution.distribution_bucket_name["us-east-1"]`). With failover enabled, the backup bucket is filled by replication. Don't write to it directly.
 
 ### Failover tuning
 
@@ -69,7 +70,8 @@ In the worst case, CloudFront waits about attempts × timeout seconds (10 by def
 
 ### Notes
 
-- **Domain:** `domain` must be lowercase and at most 32 characters, so the generated bucket and IAM role names stay within AWS limits.
+- **Naming:** `distribution_name` names the S3 buckets and the replication IAM role. It must be lowercase letters, numbers and hyphens, start with a letter or number, and be at most 19 characters so the bucket names stay within the 63-character S3 limit. `domain` must be lowercase and at most 63 characters, because it names the Origin Access Control and cache policy.
+- **Renaming:** changing `distribution_name` replaces the buckets. With `force_destroy = true` the old buckets and their contents are deleted, so redeploy your site afterwards.
 - **Replication timing:** replication is asynchronous. Most objects copy within seconds to minutes, so right after a deploy the backup can briefly serve older content during a failover.
 - **Existing objects:** replication only copies objects written **after** it's enabled. Use S3 Batch Replication to backfill a backup bucket added to an existing site.
 - **KMS keys:** with a backup region, `bucket_encryption_keys` must have keys for **both** regions or **neither** (enforced by validation). The backup-region key re-encrypts replicas. Each key policy must also allow the `cloudfront.amazonaws.com` service principal to `kms:Decrypt`, or CloudFront can't read the objects (see the `kms-failover` example).
