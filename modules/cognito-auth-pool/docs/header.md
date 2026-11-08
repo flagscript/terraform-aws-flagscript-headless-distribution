@@ -1,6 +1,6 @@
 # cognito-auth-pool
 
-Submodule that creates a Cognito user pool with managed login pages on a custom domain, for signing members in to sites served by the root module. App clients are added separately with [edge-auth-client](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/tree/main/modules/edge-auth-client), so one pool can serve several protected sites.
+Submodule that creates a Cognito user pool with managed login pages on a custom domain, for signing members in to sites served by the root module. App clients are added separately with [cognito-auth-client](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/tree/main/modules/cognito-auth-client), so one pool can serve several sites and apps.
 
 ## Features
 
@@ -31,7 +31,7 @@ module "auth" {
 }
 ```
 
-Then add an app client for each protected site with [edge-auth-client](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/tree/main/modules/edge-auth-client), passing `module.auth.user_pool_id`.
+Then add an app client for each site or app with [cognito-auth-client](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/tree/main/modules/cognito-auth-client), passing `module.auth.user_pool_id`. Use a public client for browser sign-in, or a confidential client for Lambda@Edge.
 
 ### Providers
 
@@ -45,4 +45,4 @@ Then add an app client for each protected site with [edge-auth-client](https://g
 - **Parent domain A record:** Cognito only creates a custom domain such as `auth.example.com` if the **parent** domain (`example.com`) already resolves with an A record. Create that record first (for example, point the apex at your site's distribution), or the domain step fails.
 - **Deletion protection** is on by default. Deleting the pool deletes every member account, so turn `user_pool_deletion_protection` off deliberately before a destroy.
 - **Schema changes:** only `email` is a required attribute. Changing the schema later replaces the pool and every account in it.
-- **Upgrading from 1.6:** the app client moved to `edge-auth-client`. See that submodule's notes for the `moved` blocks that keep your existing client and secret.
+- **Upgrading from 1.6:** the app client moved to `cognito-auth-client`. See that submodule's notes for the `moved` blocks that keep your existing client and secret.
