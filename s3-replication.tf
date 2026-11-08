@@ -15,7 +15,7 @@ resource "aws_iam_role" "distribution_replication_role" {
   provider           = aws.dist
   assume_role_policy = data.aws_iam_policy_document.s3_assume_role_policy_document.json
   description        = "S3 origin replication role for ${var.domain}"
-  name               = "${local.title_domain}DistributionReplicationRole"
+  name               = "${local.title_distribution_name}DistributionReplicationRole"
   tags = merge(
     local.common_tags,
     {

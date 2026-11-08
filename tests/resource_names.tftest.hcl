@@ -16,8 +16,9 @@ mock_provider "aws" {
 }
 
 variables {
-  # The longest domain the validation allows (32 characters).
-  domain                   = "abcdefghijklmnopqrstuvwxyz12.com"
+  # The longest values the validations allow: 19 and 63 characters.
+  distribution_name        = "abcdefghijklmnopqrs"
+  domain                   = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com"
   hosted_zone_id           = "Z0123456789EXAMPLE"
   s3_origin_primary_region = "us-east-1"
 }
@@ -48,6 +49,21 @@ run "longest_replication_role_name_fits_iam_limit" {
   assert {
     condition     = length(aws_iam_role.distribution_replication_role[0].name) <= 64
     error_message = "Replication role name is over 64 characters: ${aws_iam_role.distribution_replication_role[0].name}"
+  }
+}
+
+# Origin Access Control names max out at 64 characters, and cache policy names at 128.
+run "longest_cloudfront_names_fit_limits" {
+  command = plan
+
+  assert {
+    condition     = length(aws_cloudfront_origin_access_control.origin_access_control.name) <= 64
+    error_message = "OAC name is over 64 characters: ${aws_cloudfront_origin_access_control.origin_access_control.name}"
+  }
+
+  assert {
+    condition     = length(aws_cloudfront_cache_policy.default_cache_policy.name) <= 128
+    error_message = "Cache policy name is over 128 characters: ${aws_cloudfront_cache_policy.default_cache_policy.name}"
   }
 }
 

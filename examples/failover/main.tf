@@ -37,6 +37,7 @@ module "headless_distribution" {
     aws.dns  = aws.dns
   }
 
+  distribution_name        = "example-site"
   domain                   = "www.example.com"
   hosted_zone_id           = "Z0123456789EXAMPLE"
   s3_origin_primary_region = "us-east-1"
