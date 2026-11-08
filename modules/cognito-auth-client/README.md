@@ -170,6 +170,7 @@ This submodule uses the **default** `aws` provider, not an alias. Pass the provi
 | <a name="input_user_pool_region"></a> [user\_pool\_region](#input\_user\_pool\_region) | AWS region for the user pool. | `string` | n/a | yes |
 | <a name="input_access_token_validity_minutes"></a> [access\_token\_validity\_minutes](#input\_access\_token\_validity\_minutes) | Lifetime of ID and access tokens. | `number` | `60` | no |
 | <a name="input_client_type"></a> [client\_type](#input\_client\_type) | public: browser-based sign-in, with no secret and SRP allowed. confidential: server-side sign-in such as LambdaAtEdge, with a client secret. Changing it replaces the client. | `string` | `"confidential"` | no |
+| <a name="input_identity_provider_names"></a> [identity\_provider\_names](#input\_identity\_provider\_names) | Names of the social identity providers to enable for this client. | `list(string)` | `[]` | no |
 | <a name="input_logout_urls"></a> [logout\_urls](#input\_logout\_urls) | URLs Cognito may redirect to after sign-out. | `list(string)` | `[]` | no |
 | <a name="input_refresh_token_validity_days"></a> [refresh\_token\_validity\_days](#input\_refresh\_token\_validity\_days) | How long a member stays signed in without re-entering credentials. | `number` | `30` | no |
 

@@ -45,6 +45,15 @@ variable "tags" {
   type        = map(string)
 }
 
+variable "login_with_amazon" {
+  default     = null
+  description = "Login with Amazon security profile credentials. Leave null to disable."
+  sensitive   = true
+  type = object({
+    client_id     = string
+    client_secret = string
+  })
+}
 
 variable "user_pool_mfa_configuration" {
   default     = "OPTIONAL"
