@@ -1,3 +1,17 @@
+# [1.4.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.3.0...v1.4.0) (2026-11-08)
+
+
+### Bug Fixes
+
+* disallow friendly name starting with hyphen ([75c2bb7](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/75c2bb74aaf8b521083ef66df4ca9e2811981988))
+* name fixes and char length restrcitions ([696207a](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/696207a487892ba45b8c8264ee12ba14e3b2accb))
+* user lower for dist name ([3aef8f6](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/3aef8f6eb18cb0e267d1c630df542785e0f7189d))
+
+
+### Features
+
+* enforce friendly name for length restrictions ([ad21d82](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/ad21d82c5521f31944303f26a2277adef65dcd84))
+
 # [1.3.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.2.4...v1.3.0) (2026-11-08)
 
 
