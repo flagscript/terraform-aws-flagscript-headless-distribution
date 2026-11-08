@@ -48,8 +48,16 @@ variable "access_token_validity_minutes" {
 
 variable "identity_provider_names" {
   default     = []
-  description = "Names of the social identity providers to enable for this client."
+  description = "Names of the pool's social identity providers to enable for this client. COGNITO is always enabled."
   type        = list(string)
+
+  validation {
+    condition = alltrue([
+      for name in var.identity_provider_names :
+      contains(["Facebook", "Google", "LoginWithAmazon", "SignInWithApple"], name)
+    ])
+    error_message = "identity_provider_names may only contain Facebook, Google, LoginWithAmazon or SignInWithApple."
+  }
 }
 
 variable "logout_urls" {
