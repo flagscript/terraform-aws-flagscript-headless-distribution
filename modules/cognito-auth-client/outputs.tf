@@ -5,7 +5,7 @@ output "client_id" {
 }
 
 output "client_secret" {
-  description = "Cognito user pool client secret. null for public clients"
+  description = "Cognito user pool client secret. null for public clients."
   sensitive   = true
   value       = aws_cognito_user_pool_client.this.client_secret
 }

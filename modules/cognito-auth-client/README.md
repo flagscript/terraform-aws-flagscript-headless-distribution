@@ -164,7 +164,7 @@ This submodule uses the **default** `aws` provider, not an alias. Pass the provi
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_callback_urls"></a> [callback\_urls](#input\_callback\_urls) | URLs Cognito may redirect to after sign-in. Your app's sign-in callback, or the edge function's redirect path | `list(string)` | n/a | yes |
+| <a name="input_callback_urls"></a> [callback\_urls](#input\_callback\_urls) | URLs Cognito may redirect to after sign-in. Your app's sign-in callback, or the edge function's redirect path. | `list(string)` | n/a | yes |
 | <a name="input_client_name"></a> [client\_name](#input\_client\_name) | Name of the Cognito user pool client. | `string` | n/a | yes |
 | <a name="input_user_pool_id"></a> [user\_pool\_id](#input\_user\_pool\_id) | ID of the Cognito user pool. | `string` | n/a | yes |
 | <a name="input_user_pool_region"></a> [user\_pool\_region](#input\_user\_pool\_region) | AWS region for the user pool. | `string` | n/a | yes |
@@ -178,7 +178,7 @@ This submodule uses the **default** `aws` provider, not an alias. Pass the provi
 | Name | Description |
 | ---- | ----------- |
 | <a name="output_client_id"></a> [client\_id](#output\_client\_id) | Cognito user pool client ID. |
-| <a name="output_client_secret"></a> [client\_secret](#output\_client\_secret) | Cognito user pool client secret. null for public clients |
+| <a name="output_client_secret"></a> [client\_secret](#output\_client\_secret) | Cognito user pool client secret. null for public clients. |
 
 ## Contributing
 

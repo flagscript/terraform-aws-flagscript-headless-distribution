@@ -1,4 +1,4 @@
-# User Pool Edge Client
+# User Pool Client
 resource "aws_cognito_user_pool_client" "this" {
   region                               = var.user_pool_region
   access_token_validity                = var.access_token_validity_minutes
@@ -8,10 +8,9 @@ resource "aws_cognito_user_pool_client" "this" {
   callback_urls                        = var.callback_urls
   enable_token_revocation              = true
   explicit_auth_flows = concat(
-    # no password sign-in through this client
-    ["ALLOW_REFRESH_TOKEN_AUTH"],
     # Public clients also allow SRP sign-in from browser code; confidential clients
     # only sign in through the managed login pages.
+    ["ALLOW_REFRESH_TOKEN_AUTH"],
     local.public_auth_client ? ["ALLOW_USER_SRP_AUTH"] : []
   )
   generate_secret               = !local.public_auth_client
