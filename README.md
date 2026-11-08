@@ -122,6 +122,7 @@ In the worst case, CloudFront waits about attempts × timeout seconds (10 by def
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
+| <a name="input_distribution_name"></a> [distribution\_name](#input\_distribution\_name) | Friendly name for the distribution. | `string` | n/a | yes |
 | <a name="input_domain"></a> [domain](#input\_domain) | The domain of the headless website. | `string` | n/a | yes |
 | <a name="input_hosted_zone_id"></a> [hosted\_zone\_id](#input\_hosted\_zone\_id) | Id of the hosted zone to hold the route 53 records. | `string` | n/a | yes |
 | <a name="input_s3_origin_primary_region"></a> [s3\_origin\_primary\_region](#input\_s3\_origin\_primary\_region) | The primary region for the S3 origin. | `string` | n/a | yes |
