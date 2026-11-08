@@ -1,4 +1,4 @@
-# Log with Amazon
+# Login with Amazon
 resource "aws_cognito_identity_provider" "amazon" {
   provider = aws.cognito
   count    = var.login_with_amazon == null ? 0 : 1
