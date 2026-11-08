@@ -20,17 +20,11 @@ resource "aws_cognito_user_pool_client" "this" {
   prevent_user_existence_errors = "ENABLED"
   read_attributes               = ["email", "email_verified", "given_name", "family_name", "name"]
   refresh_token_validity        = var.refresh_token_validity_days
-  # Referencing the provider resources (not literal names) makes Terraform
-  # create each identity provider before the client that lists it.
-  supported_identity_providers = concat(
-    ["COGNITO"],
-    # aws_cognito_identity_provider.google[*].provider_name,
-    # aws_cognito_identity_provider.facebook[*].provider_name,
-    # aws_cognito_identity_provider.amazon[*].provider_name,
-    # aws_cognito_identity_provider.apple[*].provider_name,
-  )
-  user_pool_id     = var.user_pool_id
-  write_attributes = ["email", "given_name", "family_name", "name"]
+  # COGNITO is always enabled. Pass module.<pool>.identity_provider_names rather than
+  # literal names, so Terraform creates each provider before the client that lists it.
+  supported_identity_providers = concat(["COGNITO"], var.identity_provider_names)
+  user_pool_id                 = var.user_pool_id
+  write_attributes             = ["email", "given_name", "family_name", "name"]
 
   token_validity_units {
     access_token  = "minutes"

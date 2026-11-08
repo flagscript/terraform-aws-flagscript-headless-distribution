@@ -80,7 +80,7 @@ In the worst case, CloudFront waits about attempts × timeout seconds (10 by def
 
 ## Submodules
 
-- [cognito-auth-pool](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/tree/main/modules/cognito-auth-pool): Cognito user pool with managed login pages on a custom domain
+- [cognito-auth-pool](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/tree/main/modules/cognito-auth-pool): Cognito user pool with managed login pages on a custom domain, and optional Login with Amazon
 - [cognito-auth-client](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/tree/main/modules/cognito-auth-client): app client with managed login branding. Public for sign-in from browser code, or confidential (with a secret) for Lambda@Edge authentication in front of a distribution. Add one per site or app.
 
 ## Examples

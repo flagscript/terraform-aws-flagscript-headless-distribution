@@ -23,3 +23,9 @@ output "user_pool_issuer_url" {
   description = "OIDC issuer for validating tokens on the website/API."
   value       = "https://${aws_cognito_user_pool.this.endpoint}"
 }
+
+# Identity providers
+output "identity_provider_names" {
+  description = "Names of the social identity providers on this pool, for the client's supported_identity_providers."
+  value       = aws_cognito_identity_provider.amazon[*].provider_name
+}
