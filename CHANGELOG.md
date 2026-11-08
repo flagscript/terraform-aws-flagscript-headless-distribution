@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.4.0...v1.5.0) (2026-11-08)
+
+
+### Features
+
+* add cognito auth modle ([a15c779](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/a15c779d8db1e83c001dfcfe23c45a6bb9db4ef6))
+
 # [1.4.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.3.0...v1.4.0) (2026-11-08)
 
 
