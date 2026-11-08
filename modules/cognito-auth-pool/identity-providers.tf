@@ -9,9 +9,14 @@ resource "aws_cognito_identity_provider" "amazon" {
   provider_type = "LoginWithAmazon"
 
   provider_details = {
-    client_id        = var.login_with_amazon.client_id
-    client_secret    = var.login_with_amazon.client_secret
-    authorize_scopes = "profile"
+    attributes_url                = "https://api.amazon.com/user/profile"
+    attributes_url_add_attributes = false
+    authorize_scopes              = "profile"
+    authorize_url                 = "https://www.amazon.com/ap/oa"
+    client_id                     = var.login_with_amazon.client_id
+    client_secret                 = var.login_with_amazon.client_secret
+    token_request_method          = "POST"
+    token_url                     = "https://api.amazon.com/auth/o2/token"
   }
 
   attribute_mapping = {
