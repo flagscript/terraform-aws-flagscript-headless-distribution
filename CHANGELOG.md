@@ -1,3 +1,18 @@
+# [1.7.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.6.0...v1.7.0) (2026-11-08)
+
+
+### Bug Fixes
+
+* fix outputs, add local decision, fix ocmments ([dab390a](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/dab390a44de33f0294367529a64a283be9036955))
+
+
+### Features
+
+* add edge client module ([2c1381b](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/2c1381b9db2f251dbf122855b8d55be2fac79504))
+* add edge client module ([ab6ac1b](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/ab6ac1b4cdb94e3d841faea5feef8fc67a902dfe))
+* edge client to public or private client ([21b2b36](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/21b2b366ec672f4a12e91fd1a4e21075fb34278f))
+* remove edge client ([605820f](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/605820fc6dc93672f1de6e882c53bf9008062bc5))
+
 # [1.6.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.5.0...v1.6.0) (2026-11-08)
 
 
