@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.8.1...v1.9.0) (2026-11-08)
+
+
+### Features
+
+* login with google ([7746e57](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/7746e57eb420f4a50c57cad71c16c6b9d71ba152))
+
 ## [1.8.1](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.8.0...v1.8.1) (2026-11-08)
 
 
