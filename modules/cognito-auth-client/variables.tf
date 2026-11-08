@@ -1,7 +1,7 @@
 # REQUIRED PARAMETERS
 # These parameters must be supplied when consuming this module.
 variable "callback_urls" {
-  description = "URLs Cognito may redirect to after sign-in, e.g. https://www.example.com/auth/callback. This must match the edge function’s redirect path."
+  description = "URLs Cognito may redirect to after sign-in. Your app's sign-in callback, or the edge function's redirect path"
   type        = list(string)
 
   validation {
@@ -18,7 +18,7 @@ variable "callback_urls" {
   }
 }
 
-variable "edge_client_name" {
+variable "client_name" {
   description = "Name of the Cognito user pool client."
   type        = string
 }
@@ -60,10 +60,15 @@ variable "logout_urls" {
   }
 }
 
-variable "public_auth_client" {
-  default     = false
-  description = "Whether the client is a public authentication client."
-  type        = bool
+variable "client_type" {
+  default     = "confidential"
+  description = "public: browser-based sign-in, with no secret and SRP allowed. confidential: server-side sign-in such as LambdaAtEdge, with a client secret. Changing it replaces the client."
+  type        = string
+
+  validation {
+    condition     = contains(["public", "confidential"], var.client_type)
+    error_message = "client_type must be either public or confidential."
+  }
 }
 
 variable "refresh_token_validity_days" {

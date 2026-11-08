@@ -8,13 +8,16 @@ resource "aws_cognito_user_pool_client" "this" {
   callback_urls                        = var.callback_urls
   enable_token_revocation              = true
   explicit_auth_flows = concat(
-    ["ALLOW_REFRESH_TOKEN_AUTH"], # no password sign-in through this client
-    var.public_auth_client ? ["ALLOW_USER_SRP_AUTH"] : []
+    # no password sign-in through this client
+    ["ALLOW_REFRESH_TOKEN_AUTH"],
+    # Public clients also allow SRP sign-in from browser code; confidential clients
+    # only sign in through the managed login pages.
+    local.public_auth_client ? ["ALLOW_USER_SRP_AUTH"] : []
   )
-  generate_secret               = var.public_auth_client ? false : true
+  generate_secret               = !local.public_auth_client
   id_token_validity             = var.access_token_validity_minutes
   logout_urls                   = var.logout_urls
-  name                          = var.edge_client_name
+  name                          = var.client_name
   prevent_user_existence_errors = "ENABLED"
   read_attributes               = ["email", "email_verified", "given_name", "family_name", "name"]
   refresh_token_validity        = var.refresh_token_validity_days

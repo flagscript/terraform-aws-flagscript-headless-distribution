@@ -119,13 +119,13 @@ This submodule uses the **default** `aws` provider, not an alias. Pass the provi
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_callback_urls"></a> [callback\_urls](#input\_callback\_urls) | URLs Cognito may redirect to after sign-in, e.g. https://www.example.com/auth/callback. This must match the edge function’s redirect path. | `list(string)` | n/a | yes |
-| <a name="input_edge_client_name"></a> [edge\_client\_name](#input\_edge\_client\_name) | Name of the Cognito user pool client. | `string` | n/a | yes |
+| <a name="input_callback_urls"></a> [callback\_urls](#input\_callback\_urls) | URLs Cognito may redirect to after sign-in. Your app's sign-in callback, or the edge function's redirect path | `list(string)` | n/a | yes |
+| <a name="input_client_name"></a> [client\_name](#input\_client\_name) | Name of the Cognito user pool client. | `string` | n/a | yes |
 | <a name="input_user_pool_id"></a> [user\_pool\_id](#input\_user\_pool\_id) | ID of the Cognito user pool. | `string` | n/a | yes |
 | <a name="input_user_pool_region"></a> [user\_pool\_region](#input\_user\_pool\_region) | AWS region for the user pool. | `string` | n/a | yes |
 | <a name="input_access_token_validity_minutes"></a> [access\_token\_validity\_minutes](#input\_access\_token\_validity\_minutes) | Lifetime of ID and access tokens. | `number` | `60` | no |
+| <a name="input_client_type"></a> [client\_type](#input\_client\_type) | public: browser-based sign-in, with no secret and SRP allowed. confidential: server-side sign-in such as LambdaAtEdge, with a client secret. Changing it replaces the client. | `string` | `"confidential"` | no |
 | <a name="input_logout_urls"></a> [logout\_urls](#input\_logout\_urls) | URLs Cognito may redirect to after sign-out. | `list(string)` | `[]` | no |
-| <a name="input_public_auth_client"></a> [public\_auth\_client](#input\_public\_auth\_client) | Whether the client is a public authentication client. | `bool` | `false` | no |
 | <a name="input_refresh_token_validity_days"></a> [refresh\_token\_validity\_days](#input\_refresh\_token\_validity\_days) | How long a member stays signed in without re-entering credentials. | `number` | `30` | no |
 
 ## Outputs
@@ -133,7 +133,7 @@ This submodule uses the **default** `aws` provider, not an alias. Pass the provi
 | Name | Description |
 | ---- | ----------- |
 | <a name="output_client_id"></a> [client\_id](#output\_client\_id) | Cognito user pool client ID. |
-| <a name="output_client_secret"></a> [client\_secret](#output\_client\_secret) | Cognito user pool client secret. |
+| <a name="output_client_secret"></a> [client\_secret](#output\_client\_secret) | Cognito user pool client secret. null for public clients |
 
 ## Contributing
 
