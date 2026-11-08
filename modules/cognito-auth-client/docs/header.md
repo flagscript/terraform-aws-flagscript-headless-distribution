@@ -10,7 +10,7 @@ Each client is either **public**, for sign-in from browser code, or **confidenti
 - **Public or confidential** through `client_type`: public clients have no secret, and confidential clients get a client secret.
 - **Managed login branding** for the client, using Cognito's default look. Under managed login, each client needs its own branding style.
 - **Token lifetimes** for ID, access and refresh tokens, set per client.
-- **Social sign-in** (optional): offer the pool's social identity providers, such as Login with Amazon, alongside Cognito accounts.
+- **Social sign-in** (optional): offer the pool's social identity providers, such as Login with Amazon or Google, alongside Cognito accounts.
 
 ## Choosing a client type
 
@@ -63,7 +63,7 @@ module "app_client" {
   user_pool_id     = module.auth.user_pool_id
   user_pool_region = "us-east-1"
 
-  # Optional: offer the pool's social providers (e.g. Login with Amazon)
+  # Optional: offer the pool's social providers (e.g. Login with Amazon or Google)
   identity_provider_names = module.auth.identity_provider_names
 
   # Create the branding only after the pool's login domain exists
