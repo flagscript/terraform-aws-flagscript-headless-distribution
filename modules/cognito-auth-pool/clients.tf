@@ -1,5 +1,4 @@
-# User Pool Client
-
+# User Pool Public Client
 resource "aws_cognito_user_pool_client" "public_client" {
   provider                             = aws.cognito
   region                               = var.user_pool_region
@@ -37,6 +36,25 @@ resource "aws_cognito_user_pool_client" "public_client" {
     id_token      = "minutes"
     refresh_token = "days"
   }
+}
+
+# User Pool Edge Client
+resource "aws_cognito_user_pool_client" "edge" {
+  provider                             = aws.cognito
+  region                               = var.user_pool_region
+  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = ["openid", "email", "profile"]
+  callback_urls                        = var.callback_urls # match cognito_redirect_path
+  enable_token_revocation              = true
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"] # no password sign-in through this client
+  generate_secret                      = true
+  logout_urls                          = var.logout_urls
+  name                                 = "${var.user_pool_name}-edge-client"
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  user_pool_id                         = aws_cognito_user_pool.this.id
+
 }
 
 # Managed login pages with Cognito's default look. Customise colours, logo and

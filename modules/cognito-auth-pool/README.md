@@ -71,6 +71,7 @@ module "auth" {
 | [aws_cognito_managed_login_branding.managed_login_pages](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_managed_login_branding) | resource |
 | [aws_cognito_user_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_group) | resource |
 | [aws_cognito_user_pool.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool) | resource |
+| [aws_cognito_user_pool_client.edge](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_client) | resource |
 | [aws_cognito_user_pool_client.public_client](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_client) | resource |
 | [aws_cognito_user_pool_domain.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_domain) | resource |
 | [aws_route53_record.cloudfront_a_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
@@ -100,6 +101,8 @@ module "auth" {
 
 | Name | Description |
 | ---- | ----------- |
+| <a name="output_edge_client_id"></a> [edge\_client\_id](#output\_edge\_client\_id) | Cognito user pool edge client ID. |
+| <a name="output_edge_client_secret"></a> [edge\_client\_secret](#output\_edge\_client\_secret) | Cognito user pool edge client secret. |
 | <a name="output_public_client_id"></a> [public\_client\_id](#output\_public\_client\_id) | Cognito user pool public client ID. |
 | <a name="output_user_pool_arn"></a> [user\_pool\_arn](#output\_user\_pool\_arn) | Cognito user pool ARN. |
 | <a name="output_user_pool_domain_url"></a> [user\_pool\_domain\_url](#output\_user\_pool\_domain\_url) | Base URL of the managed login pages, e.g. https://auth.example.com. |
