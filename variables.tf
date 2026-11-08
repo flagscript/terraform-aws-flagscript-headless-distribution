@@ -5,8 +5,8 @@ variable "domain" {
   type        = string
 
   validation {
-    condition     = can(regex("^[a-z0-9.-]+$", var.domain))
-    error_message = "Domain must contain only lowercase letters, numbers, dots, and hyphens."
+    condition     = can(regex("^[a-z0-9.-]+$", var.domain)) && length(var.domain) < 64
+    error_message = "Domain must contain only lowercase letters, numbers, dots, and hyphens and be less than 64 characters."
   }
 }
 
@@ -16,7 +16,7 @@ variable "distribution_name" {
 
   validation {
     condition     = can(regex("^[a-z0-9-]+$", var.distribution_name)) && length(var.distribution_name) < 20
-    error_message = "Distribution name must contain only lowercase letters, numbers, dots, and hyphens and be less than 20 characters."
+    error_message = "Distribution name must contain only lowercase letters, numbers and hyphens and be less than 20 characters."
   }
 }
 

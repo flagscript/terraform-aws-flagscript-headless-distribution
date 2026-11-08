@@ -6,11 +6,10 @@ locals {
     var.s3_origin_backup_region != null ? [var.s3_origin_backup_region] : []
   )
   # domains
-  normalized_distribution_name = replace(var.distribution_name, "-", "")
-  normalized_domain            = replace(var.domain, ".", "-")
-  title_distribution_name      = replace(title(local.normalized_distribution_name), "-", "")
-  title_domain                 = replace(title(local.normalized_domain), "-", "")
-  use_s3_failover              = var.s3_origin_backup_region != null
+  normalized_domain       = replace(var.domain, ".", "-")
+  title_distribution_name = replace(title(var.distribution_name), "-", "")
+  title_domain            = replace(title(local.normalized_domain), "-", "")
+  use_s3_failover         = var.s3_origin_backup_region != null
   common_tags = merge(
     {
       "terraform:module:repository" = "https://github.com/flagscript/terraform-aws-flagscript-headless-distribution"
