@@ -10,6 +10,7 @@ Each client is either **public**, for sign-in from browser code, or **confidenti
 - **Public or confidential** through `client_type`: public clients have no secret, and confidential clients get a client secret.
 - **Managed login branding** for the client, using Cognito's default look. Under managed login, each client needs its own branding style.
 - **Token lifetimes** for ID, access and refresh tokens, set per client.
+- **Social sign-in** (optional): offer the pool's social identity providers, such as Login with Amazon, alongside Cognito accounts.
 
 ## Choosing a client type
 
@@ -61,6 +62,9 @@ module "app_client" {
   logout_urls      = ["https://app.example.com/"]
   user_pool_id     = module.auth.user_pool_id
   user_pool_region = "us-east-1"
+
+  # Optional: offer the pool's social providers (e.g. Login with Amazon)
+  identity_provider_names = module.auth.identity_provider_names
 
   # Create the branding only after the pool's login domain exists
   depends_on = [module.auth]
@@ -124,7 +128,7 @@ This submodule uses the **default** `aws` provider, not an alias. Pass the provi
 - **Ordering with the pool:** the branding style needs the pool's managed login domain. When the pool and client are created in the same apply, add `depends_on = [module.auth]` (or whatever you named the pool module) so the client waits for the domain.
 - **Callback and logout URLs:** each URL must use `https://` (or `http://localhost` for local development) and must not contain a fragment (`#`). Callback URLs must exactly match your app's callback or the edge function's redirect path, or Cognito rejects the redirect after sign-in.
 - **Client secret in state:** for confidential clients, the secret is stored in Terraform state, and the `client_secret` output is marked sensitive. Use an encrypted, access-controlled state backend.
-- **Identity providers:** the client currently supports Cognito user accounts only (`COGNITO`).
+- **Identity providers:** Cognito user accounts (`COGNITO`) are always enabled. Add social providers with `identity_provider_names`, which the managed login pages then show as sign-in buttons. Pass `module.auth.identity_provider_names` rather than typing names such as `"LoginWithAmazon"`: the reference makes Terraform create the provider before the client, and a typed name that doesn't exist on the pool fails at apply.
 - **Upgrading from 1.6:** in 1.6 the client lived in `cognito-auth-pool`. Add `moved` blocks in your root configuration to keep the existing client, its ID and its secret, instead of replacing them. Leave `client_type` as `confidential`, since the 1.6 client had a secret:
 
   ```hcl
