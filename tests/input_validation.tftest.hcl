@@ -18,7 +18,7 @@ mock_provider "aws" {
 
 variables {
   domain                   = "www.example.com"
-  hosted_zone_name         = "example.com"
+  hosted_zone_id           = "Z0123456789EXAMPLE"
   s3_origin_primary_region = "us-east-1"
 }
 

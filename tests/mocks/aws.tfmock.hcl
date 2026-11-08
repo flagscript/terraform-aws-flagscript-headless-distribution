@@ -19,3 +19,21 @@ mock_data "aws_iam_policy_document" {
     json = "{\"Version\":\"2012-10-17\",\"Statement\":[]}"
   }
 }
+
+# route53.tf uses `for_each` over the certificate's domain_validation_options. The real provider
+# knows those at plan time, but a mock leaves them unknown until apply, so Terraform can't work
+# out the for_each keys. `override_during = plan` makes the mock supply these values during plan.
+mock_resource "aws_acm_certificate" {
+  override_during = plan
+  defaults = {
+    arn = "arn:aws:acm:us-east-1:123456789012:certificate/00000000-0000-0000-0000-000000000000"
+    domain_validation_options = [
+      {
+        domain_name           = "www.example.com"
+        resource_record_name  = "_abc.www.example.com."
+        resource_record_type  = "CNAME"
+        resource_record_value = "_xyz.acm-validations.aws."
+      }
+    ]
+  }
+}

@@ -20,7 +20,7 @@ mock_provider "aws" {
 # Defaults for every run below; each run can override these.
 variables {
   domain                   = "www.example.com"
-  hosted_zone_name         = "example.com"
+  hosted_zone_id           = "Z0123456789EXAMPLE"
   s3_origin_primary_region = "us-east-1"
   s3_origin_backup_region  = "us-west-2"
 }

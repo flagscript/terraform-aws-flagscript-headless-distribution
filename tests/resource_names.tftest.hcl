@@ -18,7 +18,7 @@ mock_provider "aws" {
 variables {
   # The longest domain the validation allows (32 characters).
   domain                   = "abcdefghijklmnopqrstuvwxyz12.com"
-  hosted_zone_name         = "12.com"
+  hosted_zone_id           = "Z0123456789EXAMPLE"
   s3_origin_primary_region = "us-east-1"
 }
 

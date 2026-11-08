@@ -35,7 +35,7 @@ module "headless_distribution" {
   }
 
   domain                   = "www.example.com"
-  hosted_zone_name         = "example.com"
+  hosted_zone_id           = "Z0123456789EXAMPLE"
   s3_origin_primary_region = "us-east-1"
 
   # Optional: warm standby origin with one-way replication
@@ -50,7 +50,7 @@ This module requires two aliased AWS providers:
 | Alias | Purpose |
 |-------|---------|
 | `aws.dist` | Account that owns the CloudFront distribution, ACM certificate and S3 origin buckets. Resources that must live in a specific region set `region` per resource, so this provider's region doesn't matter. |
-| `aws.dns` | Account that owns the Route 53 hosted zone named in `hosted_zone_name`. It can be the same provider as `aws.dist` when everything lives in one account. |
+| `aws.dns` | Account that owns the Route 53 hosted zone identified by `hosted_zone_id`. It can be the same provider as `aws.dist` when everything lives in one account. |
 
 ### Deploying content
 

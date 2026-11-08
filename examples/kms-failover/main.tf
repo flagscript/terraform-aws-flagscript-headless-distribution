@@ -95,7 +95,7 @@ module "headless_distribution" {
   }
 
   domain                   = "www.example.com"
-  hosted_zone_name         = "example.com"
+  hosted_zone_id           = "Z0123456789EXAMPLE"
   s3_origin_primary_region = local.primary_region
   s3_origin_backup_region  = local.backup_region
 
