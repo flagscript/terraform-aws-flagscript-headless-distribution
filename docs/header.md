@@ -77,6 +77,10 @@ In the worst case, CloudFront waits about attempts × timeout seconds (10 by def
 - **KMS keys:** with a backup region, `bucket_encryption_keys` must have keys for **both** regions or **neither** (enforced by validation). The backup-region key re-encrypts replicas. Each key policy must also allow the `cloudfront.amazonaws.com` service principal to `kms:Decrypt`, or CloudFront can't read the objects (see the `kms-failover` example).
 - **Force destroy:** buckets are created with `force_destroy = true` because their contents are build artifacts that can be redeployed.
 
+## Submodules
+
+- [cognito-auth-pool](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/tree/main/modules/cognito-auth-pool): Cognito user pool with managed login pages on a custom domain, and a confidential app client for Lambda@Edge authentication in front of the distribution
+
 ## Examples
 
 - [basic](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/tree/main/examples/basic): single-region distribution
