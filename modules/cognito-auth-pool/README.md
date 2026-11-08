@@ -9,13 +9,14 @@ Submodule that creates a Cognito user pool with managed login pages on a custom 
 - **Managed login pages** on your own domain (for example `auth.example.com`), with an ACM certificate in `us-east-1` and Route 53 records.
 - **Groups** for controlling access to member-only content through the `cognito:groups` token claim.
 - **Login with Amazon** (optional) as a social identity provider, with its email and name mapped to the user's attributes.
+- **Sign in with Google** (optional) as a social identity provider, with its email, verified-email status and names mapped to the user's attributes.
 
 ## Usage
 
 ```hcl
 module "auth" {
   source  = "flagscript/flagscript-headless-distribution/aws//modules/cognito-auth-pool"
-  version = "~> 1.7"
+  version = "~> 1.9"
 
   providers = {
     aws.cognito = aws.cognito
@@ -36,6 +37,12 @@ module "auth" {
     client_id     = var.amazon_client_id
     client_secret = var.amazon_client_secret
   }
+
+  # Optional: leave out (or null) to disable Sign in with Google
+  login_with_google = {
+    client_id     = var.google_client_id
+    client_secret = var.google_client_secret
+  }
 }
 ```
 
@@ -54,7 +61,9 @@ Then add an app client for each site or app with [cognito-auth-client](https://g
 - **Deletion protection** is on by default. Deleting the pool deletes every member account, so turn `user_pool_deletion_protection` off deliberately before a destroy.
 - **Schema changes:** only `email` is a required attribute. Changing the schema later replaces the pool and every account in it.
 - **Login with Amazon setup:** create a security profile in the [Login with Amazon console](https://developer.amazon.com/loginwithamazon/console/site/lwa/overview.html) and pass its client ID and secret in `login_with_amazon`. In the profile's web settings, add your pool's domain as an **Allowed Origin** (`https://auth.example.com`) and its IdP response path as an **Allowed Return URL** (`https://auth.example.com/oauth2/idpresponse`), or Amazon rejects the redirect. The variable is sensitive, but the secret is still stored in Terraform state.
+- **Sign in with Google setup:** in the [Google Auth Platform](https://console.cloud.google.com/auth/overview), create a **Web application** OAuth client and pass its client ID and secret in `login_with_google`. Add your pool's domain as an **Authorized JavaScript origin** (`https://auth.example.com`) and its IdP response path as an **Authorized redirect URI** (`https://auth.example.com/oauth2/idpresponse`). Under **Branding**, add the parent domain (`example.com`) as an authorized domain. Under **Audience**, publish the app to production, or only the test users you list can sign in. The variable is sensitive, but the secret is still stored in Terraform state.
 - **Enabling a provider per client:** adding a provider to the pool doesn't show it on any sign-in page by itself. Each client opts in through its `identity_provider_names` input.
+- **Accounts aren't linked across providers:** someone who signs in with a password, Amazon and Google using the same email gets a separate user for each, and each user needs its own group membership.
 - **Upgrading from 1.6:** the app client moved to `cognito-auth-client`. See that submodule's notes for the `moved` blocks that keep your existing client and secret.
 
 ## Requirements
@@ -78,6 +87,7 @@ Then add an app client for each site or app with [cognito-auth-client](https://g
 | [aws_acm_certificate.custom_domain_certificate](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate) | resource |
 | [aws_acm_certificate_validation.custom_domain_certificate_validation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation) | resource |
 | [aws_cognito_identity_provider.amazon](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_identity_provider) | resource |
+| [aws_cognito_identity_provider.google](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_identity_provider) | resource |
 | [aws_cognito_user_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_group) | resource |
 | [aws_cognito_user_pool.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool) | resource |
 | [aws_cognito_user_pool_domain.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool_domain) | resource |
@@ -96,6 +106,7 @@ Then add an app client for each site or app with [cognito-auth-client](https://g
 | <a name="input_acm_key_algorithm"></a> [acm\_key\_algorithm](#input\_acm\_key\_algorithm) | Specifies the algorithm of the public and private key pair that your Amazon issued certificate uses to encrypt data. | `string` | `"EC_prime256v1"` | no |
 | <a name="input_groups"></a> [groups](#input\_groups) | Map of groups to create with their descriptions. The site gates member-only pages on the cognito:groups claim, so a self-registered account sees nothing private until someone adds it to a group. | `map(string)` | `{}` | no |
 | <a name="input_login_with_amazon"></a> [login\_with\_amazon](#input\_login\_with\_amazon) | Login with Amazon security profile credentials. Leave null to disable. | <pre>object({<br/>    client_id     = string<br/>    client_secret = string<br/>  })</pre> | `null` | no |
+| <a name="input_login_with_google"></a> [login\_with\_google](#input\_login\_with\_google) | Google OAuth web client credentials. Leave null to disable. | <pre>object({<br/>    client_id     = string<br/>    client_secret = string<br/>  })</pre> | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags to merge into module tags. | `map(string)` | `{}` | no |
 | <a name="input_user_pool_deletion_protection"></a> [user\_pool\_deletion\_protection](#input\_user\_pool\_deletion\_protection) | Block deletion of the user pool. Deleting it deletes every member account. | `bool` | `true` | no |
 | <a name="input_user_pool_mfa_configuration"></a> [user\_pool\_mfa\_configuration](#input\_user\_pool\_mfa\_configuration) | OFF, OPTIONAL (members may enrol an authenticator app) or ON. | `string` | `"OPTIONAL"` | no |

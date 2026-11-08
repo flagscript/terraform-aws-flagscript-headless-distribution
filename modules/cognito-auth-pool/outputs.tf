@@ -27,5 +27,8 @@ output "user_pool_issuer_url" {
 # Identity providers
 output "identity_provider_names" {
   description = "Names of the social identity providers on this pool, for the client's supported_identity_providers."
-  value       = aws_cognito_identity_provider.amazon[*].provider_name
+  value = concat(
+    aws_cognito_identity_provider.amazon[*].provider_name,
+    aws_cognito_identity_provider.google[*].provider_name,
+  )
 }

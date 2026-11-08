@@ -55,6 +55,16 @@ variable "login_with_amazon" {
   })
 }
 
+variable "login_with_google" {
+  default     = null
+  description = "Google OAuth web client credentials. Leave null to disable."
+  sensitive   = true
+  type = object({
+    client_id     = string
+    client_secret = string
+  })
+}
+
 variable "user_pool_mfa_configuration" {
   default     = "OPTIONAL"
   description = "OFF, OPTIONAL (members may enrol an authenticator app) or ON."
