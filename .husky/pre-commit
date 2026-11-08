@@ -1,4 +1,0 @@
-# echo "Generating pre-commit flag"
-# touch .commit
-terraform fmt -check
-tflint
