@@ -29,6 +29,13 @@ resource "aws_cognito_user_pool" "this" {
     allow_admin_create_user_only = false
   }
 
+  dynamic "lambda_config" {
+    for_each = local.deploy_lambdas ? ["yes"] : []
+    content {
+      pre_sign_up = var.user_pool_pre_sign_up_lambda_arn
+    }
+  }
+
   email_configuration {
     email_sending_account = "COGNITO_DEFAULT" # local.use_ses ? "DEVELOPER" : "COGNITO_DEFAULT"
     # from_email_address     = var.ses_from_email
