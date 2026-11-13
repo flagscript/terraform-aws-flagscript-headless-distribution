@@ -24,6 +24,11 @@ output "user_pool_issuer_url" {
   value       = "https://${aws_cognito_user_pool.this.endpoint}"
 }
 
+output "user_pool_name" {
+  description = "Cognito user pool name."
+  value       = aws_cognito_user_pool.this.name
+}
+
 # Identity providers
 output "identity_provider_names" {
   description = "Names of the social identity providers on this pool, for the client's supported_identity_providers."
