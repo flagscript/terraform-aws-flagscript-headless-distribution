@@ -11,7 +11,7 @@ data "archive_file" "lambda" {
   output_file_mode = "0644"
 }
 
-resource "aws_lambda_function" "pre_sign_up" {
+resource "aws_lambda_function" "pre_sign_up_lambda" {
   depends_on       = [aws_iam_role_policy.pre_sign_up_lambda_role_policy]
   for_each         = toset(local.deployment_regions)
   region           = each.key
@@ -35,7 +35,7 @@ resource "aws_lambda_function" "pre_sign_up" {
 
   environment {
     variables = {
-      ALLOW_LIST_TABLE = aws_dynamodb_table.allow_list_dynamo_table[each.key].name
+      ALLOW_LIST_TABLE = aws_dynamodb_table.allow_list_dynamo_table.name
       DENY_MESSAGE     = var.deny_message
     }
   }
@@ -54,7 +54,7 @@ resource "aws_lambda_permission" "cognito_lambda_permission" {
   region        = each.key
   statement_id  = "AllowCognitoInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.pre_sign_up[each.key].function_name
+  function_name = aws_lambda_function.pre_sign_up_lambda[each.key].function_name
   principal     = "cognito-idp.amazonaws.com"
   source_arn    = var.user_pool_arn[each.key]
 }

@@ -85,7 +85,7 @@ aws dynamodb delete-item --table-name <table_name> --key '{"email": {"S": "alice
 | [aws_dynamodb_table.allow_list_dynamo_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
 | [aws_iam_role.pre_sign_up_lambda_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.pre_sign_up_lambda_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
-| [aws_lambda_function.pre_sign_up](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) | resource |
+| [aws_lambda_function.pre_sign_up_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) | resource |
 | [aws_lambda_permission.cognito_lambda_permission](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
 
 ## Inputs
@@ -102,6 +102,15 @@ aws dynamodb delete-item --table-name <table_name> --key '{"email": {"S": "alice
 | <a name="input_table_deletion_protection"></a> [table\_deletion\_protection](#input\_table\_deletion\_protection) | Protect the allow-list table from being deleted (including by terraform destroy). | `bool` | `true` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags to merge into module tags. | `map(string)` | `{}` | no |
 | <a name="input_user_pool_replication_region"></a> [user\_pool\_replication\_region](#input\_user\_pool\_replication\_region) | AWS region for the user pool replication. | `string` | `null` | no |
+
+## Outputs
+
+| Name | Description |
+| ---- | ----------- |
+| <a name="output_lambda_function_arn"></a> [lambda\_function\_arn](#output\_lambda\_function\_arn) | Regional map of ARNs of the pre sign-up Lambda. Set it as lambda\_config.pre\_sign\_up on your user pool. |
+| <a name="output_lambda_function_name"></a> [lambda\_function\_name](#output\_lambda\_function\_name) | Name of the pre sign-up Lambda. |
+| <a name="output_table_arn"></a> [table\_arn](#output\_table\_arn) | Regional map of ARNs of the DynamoDB allow-list table: the primary region plus any replica regions. |
+| <a name="output_table_name"></a> [table\_name](#output\_table\_name) | Name of the DynamoDB allow-list table. |
 
 ## Contributing
 
