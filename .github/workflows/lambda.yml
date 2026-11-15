@@ -1,0 +1,52 @@
+name: Pre sign-up Lambda
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - "modules/pre-sign-up-email-allow-list/lambda/**"
+      - ".github/workflows/lambda.yml"
+  pull_request:
+    paths:
+      - "modules/pre-sign-up-email-allow-list/lambda/**"
+      - ".github/workflows/lambda.yml"
+
+permissions:
+  contents: read # default for all jobs
+
+jobs:
+  lambda:
+    name: Typecheck, build, and test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: modules/pre-sign-up-email-allow-list/lambda
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 12
+          cache: true
+          cache_dependency_path: modules/pre-sign-up-email-allow-list/lambda/pnpm-lock.yaml
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm run typecheck
+      - name: Build
+        run: pnpm run build
+      - name: Test
+        run: pnpm test
+      # Not a failure: the release workflow rebuilds and commits the bundle.
+      - name: Note if the committed bundle is stale
+        run: |
+          if ! git diff --quiet -- dist/index.mjs; then
+            echo "::notice file=modules/pre-sign-up-email-allow-list/lambda/dist/index.mjs::The committed bundle differs from the source. The next release will rebuild and commit it."
+          fi

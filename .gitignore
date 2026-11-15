@@ -270,3 +270,7 @@ $RECYCLE.BIN/
 
 # Custom
 .terraform.lock.hcl
+# Pre sign-up Lambda: the built bundle is committed (Terraform deploys it, so
+# module consumers need no Node toolchain); the zip Terraform makes from it is not.
+!modules/pre-sign-up-email-allow-list/lambda/dist/
+modules/pre-sign-up-email-allow-list/lambda/dist/*.zip

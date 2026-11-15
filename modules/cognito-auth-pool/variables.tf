@@ -39,6 +39,16 @@ variable "groups" {
   type        = map(string)
 }
 
+variable "login_with_google" {
+  default     = null
+  description = "Google OAuth web client credentials. Leave null to disable."
+  sensitive   = true
+  type = object({
+    client_id     = string
+    client_secret = string
+  })
+}
+
 variable "tags" {
   default     = {}
   description = "Additional tags to merge into module tags."
@@ -55,14 +65,10 @@ variable "login_with_amazon" {
   })
 }
 
-variable "login_with_google" {
-  default     = null
-  description = "Google OAuth web client credentials. Leave null to disable."
-  sensitive   = true
-  type = object({
-    client_id     = string
-    client_secret = string
-  })
+variable "user_pool_deletion_protection" {
+  description = "Block deletion of the user pool. Deleting it deletes every member account."
+  type        = bool
+  default     = true
 }
 
 variable "user_pool_mfa_configuration" {
@@ -76,10 +82,10 @@ variable "user_pool_mfa_configuration" {
   }
 }
 
-variable "user_pool_deletion_protection" {
-  description = "Block deletion of the user pool. Deleting it deletes every member account."
+variable "user_pool_pre_sign_up_lambda_arn" {
+  default     = null
+  description = "Arn of the pre-sign-up lambda trigger to attach to the user pool."
   type        = bool
-  default     = true
 }
 
 variable "user_pool_tier" {
