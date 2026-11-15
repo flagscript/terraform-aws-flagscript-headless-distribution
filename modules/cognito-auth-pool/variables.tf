@@ -85,7 +85,7 @@ variable "user_pool_mfa_configuration" {
 variable "user_pool_pre_sign_up_lambda_arn" {
   default     = null
   description = "Arn of the pre-sign-up lambda trigger to attach to the user pool."
-  type        = bool
+  type        = string
 }
 
 variable "user_pool_tier" {

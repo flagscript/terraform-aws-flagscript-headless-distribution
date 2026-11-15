@@ -110,7 +110,7 @@ Then add an app client for each site or app with [cognito-auth-client](https://g
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags to merge into module tags. | `map(string)` | `{}` | no |
 | <a name="input_user_pool_deletion_protection"></a> [user\_pool\_deletion\_protection](#input\_user\_pool\_deletion\_protection) | Block deletion of the user pool. Deleting it deletes every member account. | `bool` | `true` | no |
 | <a name="input_user_pool_mfa_configuration"></a> [user\_pool\_mfa\_configuration](#input\_user\_pool\_mfa\_configuration) | OFF, OPTIONAL (members may enrol an authenticator app) or ON. | `string` | `"OPTIONAL"` | no |
-| <a name="input_user_pool_pre_sign_up_lambda_arn"></a> [user\_pool\_pre\_sign\_up\_lambda\_arn](#input\_user\_pool\_pre\_sign\_up\_lambda\_arn) | Arn of the pre-sign-up lambda trigger to attach to the user pool. | `bool` | `null` | no |
+| <a name="input_user_pool_pre_sign_up_lambda_arn"></a> [user\_pool\_pre\_sign\_up\_lambda\_arn](#input\_user\_pool\_pre\_sign\_up\_lambda\_arn) | Arn of the pre-sign-up lambda trigger to attach to the user pool. | `string` | `null` | no |
 | <a name="input_user_pool_tier"></a> [user\_pool\_tier](#input\_user\_pool\_tier) | Cognito feature plan. ESSENTIALS is needed for the managed login branding editor. | `string` | `"ESSENTIALS"` | no |
 
 ## Outputs
