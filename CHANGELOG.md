@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.10.0...v1.10.1) (2026-11-15)
+
+
+### Bug Fixes
+
+* fix preauth arn type ([0fdbcf4](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/0fdbcf4ef1cb02c810f027ab4f903ced4f0fc7f2))
+
 # [1.10.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.9.0...v1.10.0) (2026-11-15)
 
 
