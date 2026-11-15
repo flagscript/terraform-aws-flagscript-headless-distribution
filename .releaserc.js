@@ -19,7 +19,9 @@ module.exports = {
     [
       "@semantic-release/git",
       {
-        assets: ["CHANGELOG.md"],
+        // The pre sign-up Lambda bundle is built by the release workflow just before
+        // semantic-release runs, so each release tag carries a bundle built from its source.
+        assets: ["CHANGELOG.md", "RELEASE.md"],
         message: "chore(release): ${nextRelease.version} [skip ci]",
       },
     ],

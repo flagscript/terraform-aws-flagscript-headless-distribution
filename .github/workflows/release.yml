@@ -22,6 +22,25 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      # Build the pre sign-up Lambda bundle so semantic-release commits it with the
+      # release (it's an asset in .releaserc.js). A failed build or test stops the release.
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 12
+          cache: true
+          cache_dependency_path: modules/pre-sign-up-email-allow-list/lambda/pnpm-lock.yaml
+      - name: Build and test pre sign-up Lambda
+        working-directory: modules/pre-sign-up-email-allow-list/lambda
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run typecheck
+          pnpm run build
+          pnpm test
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v5
         env:
