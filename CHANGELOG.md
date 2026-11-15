@@ -1,3 +1,17 @@
+# [1.10.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.9.0...v1.10.0) (2026-11-15)
+
+
+### Bug Fixes
+
+* output user pool name ([9caa456](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/9caa4560799ba488059058206bda04b0439a3162))
+
+
+### Features
+
+* add pre sign up email allow list hook ([d24567a](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/d24567a552963036056353f1d563f70c991a014e))
+* add pre-sign-up user pool module for email allow list ([1883077](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/18830779a20963258c063190ffb74eec52c12144))
+* allow pre-auth lambda ([bc3cb88](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/bc3cb8883a9824f7e8368d5902cee7ae75dccc9b))
+
 # [1.9.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.8.1...v1.9.0) (2026-11-08)
 
 
