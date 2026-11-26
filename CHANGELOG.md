@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.10.1...v1.11.0) (2026-11-26)
+
+
+### Features
+
+* allow signin with apple ([a2e264c](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/commit/a2e264ca8e15b429d82ed46451d400dce9b52719))
+
 ## [1.10.1](https://github.com/flagscript/terraform-aws-flagscript-headless-distribution/compare/v1.10.0...v1.10.1) (2026-11-15)
 
 
