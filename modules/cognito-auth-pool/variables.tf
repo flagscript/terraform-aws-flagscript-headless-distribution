@@ -39,6 +39,28 @@ variable "groups" {
   type        = map(string)
 }
 
+variable "login_with_amazon" {
+  default     = null
+  description = "Login with Amazon security profile credentials. Leave null to disable."
+  sensitive   = true
+  type = object({
+    client_id     = string
+    client_secret = string
+  })
+}
+
+variable "login_with_apple" {
+  default     = null
+  description = "Sign in with Apple settings: the Services ID as client_id, the team and key IDs, and the .p8 private key contents. Leave null to disable."
+  sensitive   = true
+  type = object({
+    client_id   = string
+    key_id      = string
+    private_key = string
+    team_id     = string
+  })
+}
+
 variable "login_with_google" {
   default     = null
   description = "Google OAuth web client credentials. Leave null to disable."
@@ -53,16 +75,6 @@ variable "tags" {
   default     = {}
   description = "Additional tags to merge into module tags."
   type        = map(string)
-}
-
-variable "login_with_amazon" {
-  default     = null
-  description = "Login with Amazon security profile credentials. Leave null to disable."
-  sensitive   = true
-  type = object({
-    client_id     = string
-    client_secret = string
-  })
 }
 
 variable "user_pool_deletion_protection" {
