@@ -26,6 +26,39 @@ resource "aws_cognito_identity_provider" "amazon" {
   }
 }
 
+# Sign in with Apple
+resource "aws_cognito_identity_provider" "apple" {
+  provider = aws.cognito
+  count    = var.login_with_apple == null ? 0 : 1
+  region   = var.user_pool_region
+
+  user_pool_id  = aws_cognito_user_pool.this.id
+  provider_name = "SignInWithApple"
+  provider_type = "SignInWithApple"
+
+  # Cognito fills in the URL fields itself. Listing them here keeps every plan from showing a change.
+  provider_details = {
+    attributes_url_add_attributes = false
+    authorize_scopes              = "email name"
+    authorize_url                 = "https://appleid.apple.com/auth/authorize"
+    client_id                     = var.login_with_apple.client_id
+    key_id                        = var.login_with_apple.key_id
+    oidc_issuer                   = "https://appleid.apple.com"
+    private_key                   = var.login_with_apple.private_key
+    team_id                       = var.login_with_apple.team_id
+    token_request_method          = "POST"
+    token_url                     = "https://appleid.apple.com/auth/token"
+  }
+
+  attribute_mapping = {
+    email          = "email"
+    email_verified = "email_verified"
+    family_name    = "lastName"
+    given_name     = "firstName"
+    username       = "sub"
+  }
+}
+
 # Sign in with Google
 resource "aws_cognito_identity_provider" "google" {
   provider = aws.cognito

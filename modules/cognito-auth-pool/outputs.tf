@@ -34,6 +34,7 @@ output "identity_provider_names" {
   description = "Names of the social identity providers on this pool, for the client's supported_identity_providers."
   value = concat(
     aws_cognito_identity_provider.amazon[*].provider_name,
+    aws_cognito_identity_provider.apple[*].provider_name,
     aws_cognito_identity_provider.google[*].provider_name,
   )
 }
